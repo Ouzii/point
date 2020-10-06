@@ -14,10 +14,10 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-app.use('/', scoreRouter)
-app.use('/', userRouter)
-app.use('/', clickRouter)
-app.use('/', taskRouter)
+app.use('/point_api', scoreRouter)
+app.use('/point_api', userRouter)
+app.use('/point_api', clickRouter)
+app.use('/point_api', taskRouter)
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
