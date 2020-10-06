@@ -19,8 +19,9 @@ app.use('/', userRouter)
 app.use('/', clickRouter)
 app.use('/', taskRouter)
 
-app.listen(4000, () => {
-    console.log('Server listening port 4000')
+const PORT = process.env.PORT || 4000
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
 })
 
 database.authenticate().then(() => console.log('Connected to DB')).catch(error => console.log(error))
