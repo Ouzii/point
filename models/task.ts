@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize'
 import { database } from '../config/database'
 import Click from './click'
-import User from './user'
 
 export interface TaskAttributes {
   id?: number
@@ -43,7 +42,6 @@ const Task = database.define<any, TaskAttributes>('Task', {
   },
 })
 
-Task.hasMany(Click)
-//Task.belongsTo(User)
+Task.hasMany(Click, {foreignKey: 'taskId'})
 
 export default Task

@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize'
 import { database } from '../config/database'
-import Task from './task'
 
 export interface ClickAttributes {
   id?: number
@@ -38,7 +37,5 @@ const Click = database.define<any, ClickAttributes>('Click', {
     type: DataTypes.INTEGER
   }
 })
-
-//Click.belongsTo(Task)
 
 export default Click
