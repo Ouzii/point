@@ -1,0 +1,8 @@
+{
+  "name": "phci",
+  "script": "./index.ts",
+  "watch": true,
+  "output": "~/phci-logs/out.log",
+  "error": "~/phci-logs/error.log",
+  "merge_logs": true
+}
