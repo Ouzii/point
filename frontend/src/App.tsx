@@ -1,24 +1,22 @@
-import React from 'react'
-import logo from './logo.svg'
+import React, { useEffect } from 'react'
 import './App.css'
 
 export default () => {
+
+  useEffect(() => {
+    const savedUser: string | null = window.localStorage.getItem('user')
+    const user: Object | null = savedUser ? JSON.parse(savedUser) : null
+    if (!user) {
+      // save new user to db+localStorage
+    } else {
+      // reset button ?
+    }
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
     </div>
   )
 }
