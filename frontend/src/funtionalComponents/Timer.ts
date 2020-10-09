@@ -2,10 +2,11 @@ export default (startNow: boolean) => {
 
     let startTime: number = startNow ? new Date().getMilliseconds() : 0;
 
-    const times: number[] = [startTime]
+    const times: number[] = startNow ? [startTime] : []
 
     const startTimer = () => {
         startTime = new Date().getMilliseconds()
+        times.push(startTime)
     }
     const saveTime = () => {
         times.push(new Date().getMilliseconds())
