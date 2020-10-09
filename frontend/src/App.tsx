@@ -5,19 +5,20 @@ import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
 import { getSession, newSession } from './services/sessionService'
 import { STEP } from './config/enums'
+import { Session } from './config/types'
 
 export default () => {
 
-  const [step, setStep]: [number, Dispatch<SetStateAction<number>>] = useState(0)
-  let session
+  const [step, setStep] = useState<number>(0)
+  const [session, setSession] = useState<Session | null>(null)
 
   useEffect(() => {
     const initSessions = async () => {
       const sessionId = isSessionAlive()
       if (typeof sessionId === 'number') {
-        session = await getSession(sessionId)
+        setSession(await getSession(sessionId))
       } else if (sessionId === false) {
-        session = await newSession()
+        setSession(await newSession())
         if (session) {
           setLocalData(session)
         }
