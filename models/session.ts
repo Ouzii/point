@@ -1,44 +1,18 @@
-import { DataTypes, Sequelize, Deferrable } from 'sequelize'
 import { database } from '../config/database'
-import Click, { ClickAttributes } from './click'
-import Task, { TaskAttributes } from './task'
-import User, { UserAttributes } from './user'
+import Click from './click'
+import Task from './task'
+import User from './user'
 
 export interface SessionAttributes {
   id?: number
   createdAt?: Date
   updatedAt?: Date
-  user: UserAttributes
-  tasks: TaskAttributes[]
-  clicks: ClickAttributes[]
 }
 
-export default database.define<any, SessionAttributes>('Session', {
-  user: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: User,
-      key: 'id',
-      deferrable: new Deferrable.INITIALLY_IMMEDIATE
-    },
-    allowNull: false
-  },
-  tasks: {
-    type: DataTypes.ARRAY,
-    references: {
-      model: Task,
-      key: 'id',
-      deferrable: new Deferrable.INITIALLY_IMMEDIATE
-    },
-    allowNull: false
-  },
-  clicks: {
-    type: DataTypes.ARRAY,
-    references: {
-      model: Click,
-      key: 'id',
-      deferrable: new Deferrable.INITIALLY_IMMEDIATE
-    },
-    allowNull: false
-  }
-})
+const Session = database.define<any, SessionAttributes>('Session', {})
+
+Session.hasOne(User, { foreignKey: 'userId' })
+Session.hasMany(Task, { foreignKey: 'tasks' })
+Session.hasMany(Click, { foreignKey: 'clicks' })
+
+export default Session
