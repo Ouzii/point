@@ -1,13 +1,10 @@
-export type Session = {
-    id: number
-    user: User
-    tasks: Task[]
-    clicks: Click[]
-    step: number
-}
-
 export type User = {
+    id: number
     age: number
+    inputDevice: string
+    gender: string
+    tasks: Task[]
+    step?: number
 }
 
 export type Task = {
@@ -19,6 +16,7 @@ export type Task = {
     compareTime: number
     compareIod: number
     userValue: number
+    clicks: Click[]
 }
 
 export type Click = {

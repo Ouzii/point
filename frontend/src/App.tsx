@@ -1,31 +1,31 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
-import { isSessionAlive, setLocalData } from './functions/LocalDataHandler'
+import { isUserSessionAlive, setLocalData } from './functions/LocalDataHandler'
 import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
-import { getSession, newSession } from './services/sessionService'
+import { getUser, newUser } from './services/userService'
 import { STEP } from './config/enums'
-import { Session } from './config/types'
+import { User } from './config/types'
 
 export default () => {
 
   const [step, setStep] = useState<number>(0)
-  const [session, setSession] = useState<Session | null>(null)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    const initSessions = async () => {
-      const sessionId = isSessionAlive()
-      if (typeof sessionId === 'number') {
-        setSession(await getSession(sessionId))
-      } else if (sessionId === false) {
-        setSession(await newSession())
-        if (session) {
-          setLocalData(session)
+    const initUser = async () => {
+      const userId = isUserSessionAlive()
+      if (typeof userId === 'number') {
+        setUser(await getUser(userId))
+      } else if (userId === false) {
+        setUser(await newUser())
+        if (user) {
+          setLocalData(user)
         }
       }
     }
 
-    initSessions()
+    initUser()
     // eslint-disable-next-line
   }, [])
 
