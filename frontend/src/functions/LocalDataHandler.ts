@@ -1,4 +1,4 @@
-import { Click, Session, Task } from '../config/types'
+import { Click, User, Task } from '../config/types'
 
 const parse = (input: string | object | null) => {
     if (typeof input === 'string') {
@@ -10,17 +10,17 @@ const parse = (input: string | object | null) => {
     }
 }
 
-export const isSessionAlive = (): number | boolean => {
-    const session = getLocalData()
-    return !!session ? session.id : false
+export const isUserSessionAlive = (): number | boolean => {
+    const user = getLocalData()
+    return !!user ? user.id : false
 }
 
-export const getLocalData = (): Session => {
-    return parse(window.localStorage.getItem('sessionData'))
+export const getLocalData = (): User => {
+    return parse(window.localStorage.getItem('userData'))
 }
 
-export const setLocalData = (data: Session): void => {
-    window.localStorage.setItem('sessionData', parse(data))
+export const setLocalData = (data: User): void => {
+    window.localStorage.setItem('userData', parse(data))
 }
 
 export const getItem = (key: string): object => {
@@ -44,9 +44,9 @@ export const addNewTaskData = (newTaskData: Task): void => {
     setLocalData(localData)
 }
 
-export const addNewClickData = (NewClickData: Click): void => {
+export const addNewClickData = (NewClickData: Click, task: number): void => {
     const localData = getLocalData()
-    localData.clicks = [...localData.clicks, NewClickData]
+    localData.tasks[task].clicks = [...localData.tasks[task].clicks, NewClickData]
     setLocalData(localData)
 }
 
@@ -62,7 +62,7 @@ export default {
     updateLocalSavedData,
     getLocalData,
     setLocalData,
-    isSessionAlive,
+    isUserSessionAlive,
     addNewTaskData,
     addNewClickData,
     setStep
