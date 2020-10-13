@@ -1,4 +1,4 @@
-import { Session } from '../config/types'
+import { Click, Session, Task } from '../config/types'
 
 const parse = (input: string | object | null) => {
     if (typeof input === 'string') {
@@ -38,11 +38,32 @@ export const updateLocalSavedData = (newInput: object): void => {
     setLocalData(updatedData)
 }
 
+export const addNewTaskData = (newTaskData: Task): void => {
+    const localData = getLocalData()
+    localData.tasks = [...localData.tasks, newTaskData]
+    setLocalData(localData)
+}
+
+export const addNewClickData = (NewClickData: Click): void => {
+    const localData = getLocalData()
+    localData.clicks = [...localData.clicks, NewClickData]
+    setLocalData(localData)
+}
+
+export const setStep = (newStep: number): void => {
+    const localData = getLocalData()
+    localData.step = newStep
+    setLocalData(localData)
+}
+
 export default {
     getItem,
     setItem,
     updateLocalSavedData,
     getLocalData,
     setLocalData,
-    isSessionAlive
+    isSessionAlive,
+    addNewTaskData,
+    addNewClickData,
+    setStep
 }

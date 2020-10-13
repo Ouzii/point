@@ -29,6 +29,11 @@ export default () => {
     // eslint-disable-next-line
   }, [])
 
+  useEffect(() => {
+    if (!step) return
+    // save session to DB and local
+  }, [step])
+
   const renderContent = () => {
     switch (step) {
       case STEP.WELCOME:
