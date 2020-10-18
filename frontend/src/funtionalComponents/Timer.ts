@@ -1,19 +1,19 @@
 export default (startNow: boolean) => {
 
-    let startTime: number = startNow ? new Date().getMilliseconds() : 0;
+    let startTime: number = startNow ? new Date().getTime() : 0;
 
-    const times: number[] = startNow ? [startTime] : []
+    let times: number[] = startNow ? [startTime] : []
 
     const startTimer = () => {
-        startTime = new Date().getMilliseconds()
+        startTime = new Date().getTime()
         times.push(startTime)
     }
     const saveTime = () => {
-        times.push(new Date().getMilliseconds())
+        times.push(new Date().getTime())
     }
 
     const endTimer = () => {
-        times.push(new Date().getMilliseconds())
+        times.push(new Date().getTime())
         return times
     }
 
@@ -25,11 +25,20 @@ export default (startNow: boolean) => {
         return times
     }
 
+    const reset = (startNow: boolean) => {
+        times = []
+        if (startNow) {
+            startTime = new Date().getTime()
+            times.push(startTime)
+        }
+    }
+
     return {
         saveTime,
         endTimer,
         startTimer,
         getStartTime,
-        getTimes
+        getTimes,
+        reset
     }
 }
