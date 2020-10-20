@@ -5,8 +5,8 @@ import Click from '../models/click'
 const taskRouter = express.Router()
 
 taskRouter.get('/tasks', async (req: express.Request, res: express.Response) => {
-  const clicks = await Task.findAll();
-  res.json(clicks)
+  const tasks = await Task.findAll()
+  res.json(tasks)
 })
 
 taskRouter.post('/tasks', async (req: express.Request, res: express.Response) => {
