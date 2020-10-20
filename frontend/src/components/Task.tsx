@@ -4,6 +4,7 @@ import Circle from './Circle'
 import tasks from '../util/tasks.json'
 import TimeGuesser from './TimeGuesser'
 import Timer from '../funtionalComponents/Timer'
+import LocalDataHandler from '../functions/LocalDataHandler'
 
 type TaskProps = {
     taskNumber: number
@@ -14,7 +15,8 @@ export default ({ taskNumber, nextStep }: TaskProps) => {
 
     const [circleNumber, setCircleNumber] = useState(0)
     const [taskOngoing, setTaskOngoing] = useState(true)
-    const task: { x: number, y: number, width: number }[] = tasks[taskNumber]
+    const [clicks, setClicks] = useState<{ x: number, y: number, hitCircle: boolean }[]>([])
+    const task: { id: number, iod: number, compare: boolean, coords: { x: number, y: number, width: number }[] } = tasks[taskNumber]
 
 
     useEffect(() => {
@@ -23,26 +25,38 @@ export default ({ taskNumber, nextStep }: TaskProps) => {
         timer.reset(true)
     }, [taskNumber])
 
-    const clickCircle = () => {
+    useEffect(() => {
+        console.log(clicks)
+
+    }, [clicks])
+
+    const clickCircle = (e: MouseEvent) => {
+        e.stopPropagation()
+        setClicks([...clicks, { x: e.clientX - ((window.innerWidth - 900) / 2), y: e.clientY - 20, hitCircle: true }])
         if (circleNumber < 7) {
             timer.saveTime()
             setCircleNumber(circleNumber + 1)
         } else {
             const times = timer.endTimer()
-            // TODO: save times
+            LocalDataHandler.setItem('time', times[times.length - 1] - times[0])
+            LocalDataHandler.setItem('clicks', clicks)
             setTaskOngoing(false)
         }
     }
 
 
+    const onMissClick = (e: MouseEvent) => {
+        e.stopPropagation()
+        setClicks([...clicks, { x: e.clientX - ((window.innerWidth - 900) / 2), y: e.clientY - 20, hitCircle: false }])
+    }
 
 
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
-            <Canvas width={900} height={900}>
+            <Canvas width={900} height={900} onClick={onMissClick}>
                 {taskOngoing ?
-                    <Circle width={task[circleNumber].width} x={task[circleNumber].x} y={task[circleNumber].y} onClick={() => clickCircle()} />
+                    <Circle width={task.coords[circleNumber].width} x={task.coords[circleNumber].x} y={task.coords[circleNumber].y} onClick={clickCircle} />
                     :
                     <TimeGuesser nextStep={() => nextStep()} />
                 }

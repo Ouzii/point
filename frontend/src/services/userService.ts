@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { User } from '../config/types'
+import { User } from '../util/types'
 import { BASE_PATH } from '../config/path'
 
 export const getUser = async (id: number): Promise<User | null> => {

@@ -1,4 +1,4 @@
-import { Click, User, Task } from '../config/types'
+import { Click, User, Task } from '../util/types'
 
 const parse = (input: string | object | null) => {
     if (typeof input === 'string') {
@@ -23,11 +23,11 @@ export const setLocalData = (data: User): void => {
     window.localStorage.setItem('userData', parse(data))
 }
 
-export const getItem = (key: string): object => {
+export const getItem = (key: string): any => {
     return parse(window.localStorage.getItem(key))
 }
 
-export const setItem = (key: string, data: object): void => {
+export const setItem = (key: string, data: any): void => {
     window.localStorage.setItem(key, parse(data))
 }
 

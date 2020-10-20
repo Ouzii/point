@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-import { isUserSessionAlive, setLocalData } from './functions/LocalDataHandler'
+import LocalDataHandler, { isUserSessionAlive, setLocalData } from './functions/LocalDataHandler'
 import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
 import { getUser, newUser } from './services/userService'
 import { STEP } from './config/enums'
-import { User } from './config/types'
+import { User } from './util/types'
 import Task from './components/Task'
 import Quiz from './components/Quiz'
 import ComparisonTask from './components/ComparisonTask'
+import tasks from './util/tasks.json'
 
 export default () => {
 
@@ -35,8 +36,32 @@ export default () => {
   useEffect(() => {
     if (!step) return
     // save session to DB and local
-    completedTasks.push(step - 2)
+    const currentLocalData = LocalDataHandler.getLocalData()
 
+    const newTask = {
+      id: tasks[step - 3].id,
+      iod: tasks[step - 3].iod,
+      compare: tasks[step - 3].compare,
+      time: LocalDataHandler.getItem('time'),
+      userTime: LocalDataHandler.getItem('guessedTime'),
+      compareTime: LocalDataHandler.getItem('compareTime'),
+      compareIod: tasks[step - 3].compareIod,
+      userValue: LocalDataHandler.getItem('compareValue'),
+      clicks: LocalDataHandler.getItem('clicks')
+    }
+    const newTasks = [...currentLocalData.tasks, newTask]
+    const newLocalData = {
+      ...currentLocalData,
+      tasks: newTasks,
+      step: step
+    }
+    LocalDataHandler.setLocalData(newLocalData)
+
+    // TODO: Send to backend userId & newTask
+    // { userId: user.id, task: newTask }
+    completedTasks.push(step - 3)
+
+    // eslint-disable-next-line
   }, [step])
 
   const getRandomFromCompleted = () => {

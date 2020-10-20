@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import LocalDataHandler from '../functions/LocalDataHandler'
 import Timer from '../funtionalComponents/Timer'
 
 const timer = Timer(false)
@@ -14,7 +15,7 @@ export default ({ nextStep }: TimeGuesserProps) => {
         if (timerOn) {
             const times = timer.endTimer()
             const guessedTime = times[times.length - 1] - times[0]
-            // TODO: use guessedTime
+            LocalDataHandler.setItem('guessedTime', guessedTime)
             setTimerOn(false)
             nextStep()
         } else {

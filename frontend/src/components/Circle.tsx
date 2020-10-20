@@ -4,7 +4,7 @@ type CircleProps = {
     width: number
     x: number
     y: number
-    onClick: () => void
+    onClick: any
 }
 export default ({ width, x, y, onClick }: CircleProps) => {
     return (

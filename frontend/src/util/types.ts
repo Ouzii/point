@@ -13,9 +13,9 @@ export type Task = {
     compare: boolean
     time: number
     userTime: number
-    compareTime: number
-    compareIod: number
-    userValue: number
+    compareTime: number | null | undefined
+    compareIod: number | null | undefined
+    userValue: number | null | undefined
     clicks: Click[]
 }
 
