@@ -35,31 +35,34 @@ export default () => {
 
   useEffect(() => {
     if (!step) return
+    if (step < 2 && step > 17) return
     // save session to DB and local
     const currentLocalData = LocalDataHandler.getLocalData()
-
+    if (!currentLocalData) return
     const newTask = {
-      id: tasks[step - 3].id,
-      iod: tasks[step - 3].iod,
-      compare: tasks[step - 3].compare,
+      id: tasks[Math.max(step - 3, 0)].id,
+      iod: tasks[Math.max(step - 3, 0)].iod,
+      compare: tasks[Math.max(step - 3, 0)].compare,
       time: LocalDataHandler.getItem('time'),
       userTime: LocalDataHandler.getItem('guessedTime'),
       compareTime: LocalDataHandler.getItem('compareTime'),
-      compareIod: tasks[step - 3].compareIod,
+      compareIod: tasks[Math.max(step - 3, 0)].compareIod,
       userValue: LocalDataHandler.getItem('compareValue'),
       clicks: LocalDataHandler.getItem('clicks')
     }
-    const newTasks = [...currentLocalData.tasks, newTask]
+
+    const newTasks = currentLocalData.tasks ? [...currentLocalData.tasks, newTask] : [newTask]
     const newLocalData = {
       ...currentLocalData,
       tasks: newTasks,
       step: step
     }
+
     LocalDataHandler.setLocalData(newLocalData)
 
     // TODO: Send to backend userId & newTask
     // { userId: user.id, task: newTask }
-    completedTasks.push(step - 3)
+    completedTasks.push(Math.max(step - 3, 0))
 
     // eslint-disable-next-line
   }, [step])

@@ -25,6 +25,12 @@ export default (startNow: boolean) => {
         return times
     }
 
+    const getTimeDifferences = () => {
+        return times.map(time => {
+            return time - times[0]
+        })
+    }
+
     const reset = (startNow: boolean) => {
         times = []
         if (startNow) {
@@ -39,6 +45,7 @@ export default (startNow: boolean) => {
         startTimer,
         getStartTime,
         getTimes,
-        reset
+        reset,
+        getTimeDifferences
     }
 }
