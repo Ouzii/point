@@ -20,7 +20,7 @@ export default ({ nextStep }: QuizProps) => {
         nextStep()
     }
     return (
-        <div style={{ width: '50%', height: '60%', display: "flex", justifyContent: 'center', alignItems: 'center', marginTop: '20%' }}>
+        <div style={{ width: '50%', height: '60%', display: "flex", justifyContent: 'center', alignItems: 'center' }}>
             <form style={{ display: "flex", height: 200, flexDirection: "column", justifyContent: 'space-around' }}>
                 <label>Ikä</label>
                 <input type="number" name="age" value={Number.parseInt(formValues.age)} onChange={onChange} min={18} />

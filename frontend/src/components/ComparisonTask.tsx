@@ -1,10 +1,11 @@
 import React from 'react'
 
 type ComparisonTaskProps = {
+    phaseNumber: number
     taskNumber: number
     nextStep: () => void
 }
-export default ({ taskNumber, nextStep }: ComparisonTaskProps) => {
+export default ({ phaseNumber, taskNumber, nextStep }: ComparisonTaskProps) => {
     return (
         <div>
 

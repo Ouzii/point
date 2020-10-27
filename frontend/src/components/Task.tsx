@@ -6,30 +6,29 @@ import TimeGuesser from './TimeGuesser'
 import Timer from '../funtionalComponents/Timer'
 import LocalDataHandler from '../functions/LocalDataHandler'
 import Countdown from './Countdown'
+import STEP from '../config/enums'
 
 type TaskProps = {
-    taskNumber: number
+    coords: any[]
     nextStep: () => void
 }
 const timer = Timer(false)
 
-export default ({ taskNumber, nextStep }: TaskProps) => {
+export default ({ coords, nextStep }: TaskProps) => {
 
-    const [circleNumber, setCircleNumber] = useState(0)
+    const [circleNumber, setCircleNumber] = useState(STEP.COORDS.COORDS1)
     const [mouseOver, setMouseOver] = useState(false)
     const [taskStarted, setTaskStarted] = useState(false)
     const [taskOngoing, setTaskOngoing] = useState(true)
     const [clicks, setClicks] = useState<{ x: number, y: number, hitCircle: boolean }[]>([])
-    const task: { id: number, iod: number, compare: boolean, coords: { x: number, y: number, width: number }[] } = tasks[taskNumber]
-
 
     useEffect(() => {
-        setCircleNumber(0)
+        setCircleNumber(STEP.COORDS.COORDS1)
         setTaskOngoing(true)
         setTaskStarted(false)
         setMouseOver(false)
-        timer.reset(true)
-    }, [taskNumber])
+        timer.reset(false)
+    }, [coords])
 
     const clickCircle = (e: MouseEvent) => {
         e.stopPropagation()
@@ -57,12 +56,14 @@ export default ({ taskNumber, nextStep }: TaskProps) => {
         timer.startTimer()
     }
 
+    console.log(coords)
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
             {taskStarted ?
-                <Canvas width={900} height={900} onClick={onMissClick}>
+                <Canvas width={800} height={800} onClick={onMissClick}>
                     {taskOngoing ?
-                        <Circle width={task.coords[circleNumber].width} x={task.coords[circleNumber].x} y={task.coords[circleNumber].y} onClick={clickCircle} />
+                        <Circle width={coords[circleNumber].width} x={coords[circleNumber].x} y={coords[circleNumber].y} onClick={clickCircle} />
                         :
                         <TimeGuesser nextStep={() => nextStep()} />
                     }

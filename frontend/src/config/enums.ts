@@ -1,25 +1,40 @@
-export enum STEP {
+export enum SET {
     WELCOME = 0,
     QUIZ,
-    TASK1,
-    TASK2,
-    TASK3,
-    TASK4,
-    TASK5,
-    TASK6,
-    TASK7,
-    TASK8,
-    TASK9,
-    TASK10,
-    TASK11,
-    TASK12,
-    TASK13,
-    TASK14,
-    TASK15,
-    TASK16,
+    SET1,
+    SET2,
+    SET3,
+    SET4,
     THANK_YOU
 }
 
+export enum PHASE {
+    PHASE1 = 1,
+    PHASE2,
+    PHASE3,
+}
+
+export enum TASK {
+    TASK1 = 0,
+    TASK2,
+    TASK3,
+    TASK4
+}
+
+export enum COORDS {
+    COORDS1 = 0,
+    COORDS2,
+    COORDS3,
+    COORDS4,
+    COORDS5,
+    COORDS6,
+    COORDS7,
+    COORDS8,
+}
+
 export default {
-    STEP
+    SET,
+    PHASE,
+    TASK,
+    COORDS
 }

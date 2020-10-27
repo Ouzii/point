@@ -25,8 +25,8 @@ export default ({ nextStep }: TimeGuesserProps) => {
     }
 
     return (
-        <div>
-            <button onClick={buttonClick}>{timerOn ? 'Lopeta' : 'Aloita'}</button>
+        <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <button onClick={buttonClick} style={{ height: 100, width: 300, fontSize: 30 }}>{timerOn ? 'Lopeta' : 'Aloita'}</button>
         </div>
     )
 }
