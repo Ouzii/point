@@ -72,9 +72,9 @@ export default () => {
       id: parsedTasks[phase][task - 1].id,
       iod: parsedTasks[phase][task - 1].iod,
       compare: parsedTasks[phase][task - 1].compare,
-      time: LocalDataHandler.getItem('time'),
+      time: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? LocalDataHandler.getItem('time1') : LocalDataHandler.getItem('time'),
       userTime: LocalDataHandler.getItem('guessedTime'),
-      compareTime: LocalDataHandler.getItem('compareTime'),
+      compareTime: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? LocalDataHandler.getItem('time2') : null,
       compareIod: parsedTasks[phase][task - 1].compareIod,
       userValue: LocalDataHandler.getItem('compareValue'),
       clicks: LocalDataHandler.getItem('clicks')
@@ -142,7 +142,7 @@ export default () => {
       case STEP.SET.SET2:
         return <Task coords={parsedTasks[getRandomForSet(2)][task].coords} nextStep={() => getNextStepForSet1And2()} />
       case STEP.SET.SET3:
-        return <ComparisonTask coords={[]} nextStep={() => getNextStepForSet3And4()} />
+        return <ComparisonTask coords={parsedTasks[phase][task].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.SET4:
         return <ComparisonTask coords={parsedTasks[getRandomForSet(4)][task].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.THANK_YOU:

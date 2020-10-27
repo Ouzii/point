@@ -12,6 +12,7 @@ type TaskProps = {
     coords: Array<any>
     nextStep: () => void
 }
+
 const timer = Timer(false)
 
 export default ({ coords, nextStep }: TaskProps) => {
