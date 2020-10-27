@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-import LocalDataHandler, { isUserSessionAlive, setLocalData } from './functions/LocalDataHandler'
+import LocalDataHandler, { setLocalData, getLocalData, getItem } from './functions/LocalDataHandler'
 import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
-import { getUser, newUser } from './services/userService'
-import STEP from './config/enums'
+import { newUser } from './services/userService'
+import STEP, { INFO_TYPE } from './config/enums'
 import Task from './components/Task'
 import Quiz from './components/Quiz'
 import ComparisonTask from './components/ComparisonTask'
 import tasks from './util/tasks.json'
+import Info from './components/Info'
 
 export default () => {
 
@@ -21,17 +22,17 @@ export default () => {
   const parsedTasks = JSON.parse(JSON.stringify(tasks))
   useEffect(() => {
     const initUser = async () => {
-      const userId = isUserSessionAlive()
-      console.log(userId)
+      // const userId = isUserSessionAlive()
+      // console.log(userId)
 
-      if (typeof userId === 'number') {
-        setLocalData(await getUser(userId))
-      } else {
-        const user = await newUser()
-        if (user) {
-          setLocalData({ ...user, tasks: [], sets: [{ phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }] })
-        }
+      // if (typeof userId === 'number') {
+      //   setLocalData(await getUser(userId))
+      // } else {
+      const user = await newUser()
+      if (user) {
+        setLocalData({ ...user, tasks: [], sets: [{ phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }] })
       }
+      // }
     }
 
     initUser()
@@ -45,6 +46,7 @@ export default () => {
 
   useEffect(() => {
     if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
+
     if (set >= STEP.SET.SET1 && set <= STEP.SET.SET2) {
       setPhase(STEP.PHASE.PHASE1)
       setTask(STEP.TASK.TASK1)
@@ -65,19 +67,19 @@ export default () => {
   useEffect(() => {
 
     if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
-    const currentLocalData = LocalDataHandler.getLocalData()
+    const currentLocalData = getLocalData()
     if (!currentLocalData) return
 
     const newTask = {
       id: parsedTasks[phase][task - 1].id,
       iod: parsedTasks[phase][task - 1].iod,
       compare: parsedTasks[phase][task - 1].compare,
-      time: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? LocalDataHandler.getItem('time1') : LocalDataHandler.getItem('time'),
-      userTime: LocalDataHandler.getItem('guessedTime'),
-      compareTime: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? LocalDataHandler.getItem('time2') : null,
+      time: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? getItem('time1') : getItem('time'),
+      userTime: getItem('guessedTime'),
+      compareTime: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? getItem('time2') : null,
       compareIod: parsedTasks[phase][task - 1].compareIod,
-      userValue: LocalDataHandler.getItem('compareValue'),
-      clicks: LocalDataHandler.getItem('clicks')
+      userValue: getItem('compareValue'),
+      clicks: getItem('clicks')
     }
 
     currentLocalData.sets[set - 2][getPhaseString(phase)].tasks.push(newTask)
@@ -136,11 +138,15 @@ export default () => {
       case STEP.SET.WELCOME:
         return <Welcome nextStep={() => setSet(STEP.SET.QUIZ)} />
       case STEP.SET.QUIZ:
-        return <Quiz nextStep={() => setSet(STEP.SET.SET1)} />
+        return <Quiz nextStep={() => setSet(STEP.SET.INFO1)} />
+      case STEP.SET.INFO1:
+        return <Info type={INFO_TYPE.TIME_GUESS} nextStep={() => setSet(STEP.SET.SET1)} />
       case STEP.SET.SET1:
         return <Task coords={parsedTasks[phase][task].coords} nextStep={() => getNextStepForSet1And2()} />
       case STEP.SET.SET2:
         return <Task coords={parsedTasks[getRandomForSet(2)][task].coords} nextStep={() => getNextStepForSet1And2()} />
+      case STEP.SET.INFO2:
+        return <Info type={INFO_TYPE.TIME_COMPARISON} nextStep={() => setSet(STEP.SET.SET1)} />
       case STEP.SET.SET3:
         return <ComparisonTask coords={parsedTasks[phase][task].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.SET4:

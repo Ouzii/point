@@ -67,7 +67,7 @@ export default ({ coords, nextStep }: TaskProps) => {
                         <TimeGuesser nextStep={() => nextStep()} />
                     }
                 </Canvas>
-                : <div style={{ width: 90, height: 90, backgroundColor: "lightgray" }} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)}>{mouseOver ? <Countdown onCountdownDone={() => startTask()} /> : 'Pidä kursori tässä'}</div>}
+                : <div style={{ width: 90, height: 90, backgroundColor: "lightgray", display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)}>{mouseOver ? <Countdown onCountdownDone={() => startTask()} /> : 'Pidä kursori tässä'}</div>}
         </div>
     )
 }

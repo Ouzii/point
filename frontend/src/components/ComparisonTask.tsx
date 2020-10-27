@@ -4,7 +4,7 @@ import Circle from './Circle'
 import Timer from '../funtionalComponents/Timer'
 import LocalDataHandler from '../functions/LocalDataHandler'
 import Countdown from './Countdown'
-import STEP from '../config/enums'
+import { COORDS, COMPARISON_TASK_NUMBER } from '../config/enums'
 import { CANVAS_SIZE } from '../config/settings'
 import TimeComparison from './TimeComparison'
 
@@ -17,15 +17,15 @@ const timer = Timer(false)
 
 export default ({ coords, nextStep }: ComparisonTaskProps) => {
 
-    const [circleNumber, setCircleNumber] = useState(STEP.COORDS.COORDS1)
-    const [taskNumber, setTaskNumber] = useState(0)
+    const [circleNumber, setCircleNumber] = useState(COORDS.COORDS1)
+    const [taskNumber, setTaskNumber] = useState(COMPARISON_TASK_NUMBER.FIRST)
     const [mouseOver, setMouseOver] = useState(false)
     const [taskStarted, setTaskStarted] = useState(false)
     const [taskOngoing, setTaskOngoing] = useState(true)
     const [clicks, setClicks] = useState<{ x: number, y: number, hitCircle: boolean }[]>([])
 
     useEffect(() => {
-        setCircleNumber(STEP.COORDS.COORDS1)
+        setCircleNumber(COORDS.COORDS1)
         setTaskOngoing(true)
         setTaskStarted(false)
         setMouseOver(false)
@@ -44,8 +44,8 @@ export default ({ coords, nextStep }: ComparisonTaskProps) => {
             LocalDataHandler.setItem('time' + (taskNumber + 1), times[times.length - 1] - times[0])
             LocalDataHandler.setItem('times' + (taskNumber + 1), timer.getTimeDifferences())
             LocalDataHandler.setItem('clicks' + (taskNumber + 1), clicks)
-            if (taskNumber === 0) {
-                setCircleNumber(STEP.COORDS.COORDS1)
+            if (taskNumber === COMPARISON_TASK_NUMBER.FIRST) {
+                setCircleNumber(COORDS.COORDS1)
                 setTaskStarted(false)
                 setTaskNumber(1)
             } else {
@@ -75,7 +75,7 @@ export default ({ coords, nextStep }: ComparisonTaskProps) => {
                         <TimeComparison nextStep={() => nextStep()} />
                     }
                 </Canvas>
-                : <div style={{ width: 90, height: 90, backgroundColor: "lightgray" }} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)}>{mouseOver ? <Countdown onCountdownDone={() => startTask()} /> : 'Pidä kursori tässä'}</div>}
+                : <div style={{ width: 90, height: 90, backgroundColor: "lightgray", display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)}>{mouseOver ? <Countdown onCountdownDone={() => startTask()} /> : 'Pidä kursori tässä'}</div>}
         </div>
     )
 }

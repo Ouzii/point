@@ -1,8 +1,10 @@
 export enum SET {
     WELCOME = 0,
     QUIZ,
+    INFO1,
     SET1,
     SET2,
+    INFO2,
     SET3,
     SET4,
     THANK_YOU
@@ -35,9 +37,21 @@ export enum COORDS {
     COORDS8,
 }
 
+export enum INFO_TYPE {
+    TIME_GUESS = 0,
+    TIME_COMPARISON
+}
+
+export enum COMPARISON_TASK_NUMBER {
+    FIRST = 0,
+    SECOND
+}
+
 export default {
     SET,
     PHASE,
     TASK,
-    COORDS
+    COORDS,
+    INFO_TYPE,
+    COMPARISON_TASK_NUMBER
 }
