@@ -1,11 +1,10 @@
 import React from 'react'
 
 type ComparisonTaskProps = {
-    phaseNumber: number
-    taskNumber: number
+    coords: Array<any>
     nextStep: () => void
 }
-export default ({ phaseNumber, taskNumber, nextStep }: ComparisonTaskProps) => {
+export default ({ coords, nextStep }: ComparisonTaskProps) => {
     return (
         <div>
 

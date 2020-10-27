@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { User } from '../util/types'
-import { BASE_PATH } from '../config/path'
+import { BASE_PATH } from '../config/settings'
 
 export const getUser = async (id: number): Promise<User | null> => {
     try {
@@ -16,7 +16,7 @@ export const newUser = async (): Promise<User | null> => {
     try {
         const res: AxiosResponse<User> = await axios.post(`${BASE_PATH}/users`)
 
-        return { ...res.data, step: 0 }
+        return res.data
     } catch (e) {
         console.log('Osku antaa jalomielisyydessään teille käyttäjän jos lopetatte väärinkäytökset: ' + e)
         return null

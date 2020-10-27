@@ -12,14 +12,14 @@ const parse = (input: string | object | null) => {
 
 export const isUserSessionAlive = (): number | boolean => {
     const user = getLocalData()
-    return !!user ? user.id : false
+    return user ? user.id : false
 }
 
 export const getLocalData = (): User => {
     return parse(window.localStorage.getItem('userData'))
 }
 
-export const setLocalData = (data: User): void => {
+export const setLocalData = (data: User | null): void => {
     window.localStorage.setItem('userData', parse(data))
 }
 
@@ -50,11 +50,11 @@ export const addNewClickData = (NewClickData: Click, task: number): void => {
     setLocalData(localData)
 }
 
-export const setStep = (newStep: number): void => {
-    const localData = getLocalData()
-    localData.step = newStep
-    setLocalData(localData)
-}
+// export const setStep = (newStep: number): void => {
+//     const localData = getLocalData()
+//     localData.step = newStep
+//     setLocalData(localData)
+// }
 
 export default {
     getItem,
@@ -65,5 +65,5 @@ export default {
     isUserSessionAlive,
     addNewTaskData,
     addNewClickData,
-    setStep
+    // setStep
 }

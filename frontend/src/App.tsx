@@ -5,7 +5,6 @@ import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
 import { getUser, newUser } from './services/userService'
 import STEP from './config/enums'
-import { User } from './util/types'
 import Task from './components/Task'
 import Quiz from './components/Quiz'
 import ComparisonTask from './components/ComparisonTask'
@@ -16,20 +15,21 @@ export default () => {
   const [set, setSet] = useState<number>(STEP.SET.WELCOME)
   const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE1)
   const [task, setTask] = useState<number>(STEP.TASK.TASK1)
-  const [coords, setCoords] = useState<number>(STEP.COORDS.COORDS1)
 
-  const [user, setUser] = useState<User | null>(null)
-  const completedTasks: number[] = []
+  const set2Tasks: Array<number> = [STEP.PHASE.PHASE1, STEP.PHASE.PHASE2, STEP.PHASE.PHASE3]
+  const set4Tasks: Array<number> = [STEP.PHASE.PHASE4, STEP.PHASE.PHASE5, STEP.PHASE.PHASE6]
   const parsedTasks = JSON.parse(JSON.stringify(tasks))
   useEffect(() => {
     const initUser = async () => {
       const userId = isUserSessionAlive()
+      console.log(userId)
+
       if (typeof userId === 'number') {
-        setUser(await getUser(userId))
-      } else if (userId === false) {
-        setUser(await newUser())
+        setLocalData(await getUser(userId))
+      } else {
+        const user = await newUser()
         if (user) {
-          setLocalData(user)
+          setLocalData({ ...user, tasks: [], sets: [{ phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }] })
         }
       }
     }
@@ -39,88 +39,95 @@ export default () => {
   }, [])
 
 
-  useEffect(() => {
+  const getPhaseString = (phaseNumber: number) => {
+    return 'phase' + phaseNumber
+  }
 
+  useEffect(() => {
+    if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
+    if (set >= STEP.SET.SET1 && set <= STEP.SET.SET2) {
+      setPhase(STEP.PHASE.PHASE1)
+      setTask(STEP.TASK.TASK1)
+    }
+    if (set >= STEP.SET.SET3 && set <= STEP.SET.SET4) {
+      setPhase(STEP.PHASE.PHASE4)
+      setTask(STEP.TASK.TASK1)
+    }
+    // eslint-disable-next-line
   }, [set])
 
   useEffect(() => {
-
+    if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
+    setTask(STEP.TASK.TASK1)
+    // eslint-disable-next-line
   }, [phase])
 
   useEffect(() => {
 
+    if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
+    const currentLocalData = LocalDataHandler.getLocalData()
+    if (!currentLocalData) return
+
+    const newTask = {
+      id: parsedTasks[phase][task - 1].id,
+      iod: parsedTasks[phase][task - 1].iod,
+      compare: parsedTasks[phase][task - 1].compare,
+      time: LocalDataHandler.getItem('time'),
+      userTime: LocalDataHandler.getItem('guessedTime'),
+      compareTime: LocalDataHandler.getItem('compareTime'),
+      compareIod: parsedTasks[phase][task - 1].compareIod,
+      userValue: LocalDataHandler.getItem('compareValue'),
+      clicks: LocalDataHandler.getItem('clicks')
+    }
+
+    currentLocalData.sets[set - 2][getPhaseString(phase)].tasks.push(newTask)
+    currentLocalData.tasks.push(newTask)
+
+    LocalDataHandler.setLocalData(currentLocalData)
+
+    // eslint-disable-next-line
   }, [task])
 
-  useEffect(() => {
 
-  }, [coords])
-
-  // useEffect(() => {
-  //   console.log(step)
-
-  //   if (!step) return
-  //   if (step < STEP.SET.SET1 && step > STEP.SET.SET4) return
-  //   // save session to DB and local
-  //   const currentLocalData = LocalDataHandler.getLocalData()
-  //   if (!currentLocalData) return
-  //   const newTask = {
-  //     id: parsedTasks[phase][taskNo].id,
-  //     iod: parsedTasks[phase][taskNo].iod,
-  //     compare: parsedTasks[phase][taskNo].compare,
-  //     time: LocalDataHandler.getItem('time'),
-  //     userTime: LocalDataHandler.getItem('guessedTime'),
-  //     compareTime: LocalDataHandler.getItem('compareTime'),
-  //     compareIod: parsedTasks[phase][taskNo].compareIod,
-  //     userValue: LocalDataHandler.getItem('compareValue'),
-  //     clicks: LocalDataHandler.getItem('clicks')
-  //   }
-
-  //   const newTasks = currentLocalData.tasks ? [...currentLocalData.tasks, newTask] : [newTask]
-  //   const newLocalData = {
-  //     ...currentLocalData,
-  //     tasks: newTasks,
-  //     step: step
-  //   }
-
-  //   LocalDataHandler.setLocalData(newLocalData)
-
-  //   // TODO: Send to backend userId & newTask
-  //   // { userId: user.id, task: newTask }
-  //   completedTasks.push(Math.max(step - 3, 0))
-  //   if (taskNo === 4) {
-  //     setPhase(phase + 1)
-  //     setTaskNo(1)
-  //   } else {
-  //     setTaskNo(taskNo + 1)
-  //   }
-
-  //   // eslint-disable-next-line
-  // }, [step])
-
-
-  const getRandomFromCompleted = () => {
-    const index = Math.floor(Math.random() * completedTasks.length)
-    return completedTasks.splice(index, 1)[0]
+  const getRandomForSet = (set: number) => {
+    const taskList = set === 2 ? set2Tasks : set === 4 ? set4Tasks : []
+    const index = Math.floor(Math.random() * taskList.length)
+    if (set === 2) {
+      return set2Tasks.splice(index, 1)[0]
+    } else {
+      return set4Tasks.splice(index, 1)[0]
+    }
   }
 
-  const getNextStep = () => {
-    if (set >= STEP.SET.SET4) {
-      setSet(STEP.SET.THANK_YOU)
-      setPhase(STEP.PHASE.PHASE1)
-      setTask(STEP.TASK.TASK1)
-      setCoords(STEP.COORDS.COORDS1)
-    } else if (phase >= STEP.PHASE.PHASE3) {
-      setSet(set + 1)
-      setPhase(STEP.PHASE.PHASE1)
-      setTask(STEP.TASK.TASK1)
-      setCoords(STEP.COORDS.COORDS1)
-    } else if (task >= STEP.TASK.TASK4) {
-      setPhase(phase + 1)
-      setTask(STEP.TASK.TASK1)
-      setCoords(STEP.COORDS.COORDS1)
+  const getNextStepForSet1And2 = () => {
+    if (task >= STEP.TASK.TASK4) {
+      if (phase >= STEP.PHASE.PHASE3) {
+        if (set >= STEP.SET.SET2) {
+          setSet(STEP.SET.SET3)
+        } else {
+          setSet(set + 1)
+        }
+      } else {
+        setPhase(phase + 1)
+      }
     } else {
       setTask(task + 1)
-      setCoords(STEP.COORDS.COORDS1)
+    }
+  }
+
+  const getNextStepForSet3And4 = () => {
+    if (task >= STEP.TASK.TASK4) {
+      if (phase >= STEP.PHASE.PHASE6) {
+        if (set >= STEP.SET.SET4) {
+          setSet(STEP.SET.THANK_YOU)
+        } else {
+          setSet(set + 1)
+        }
+      } else {
+        setPhase(phase + 1)
+      }
+    } else {
+      setTask(task + 1)
     }
   }
 
@@ -131,122 +138,15 @@ export default () => {
       case STEP.SET.QUIZ:
         return <Quiz nextStep={() => setSet(STEP.SET.SET1)} />
       case STEP.SET.SET1:
-        return <Task coords={parsedTasks[phase][task].coords} nextStep={() => getNextStep()} />
-        switch (phase) {
-          case STEP.PHASE.PHASE1:
-            switch (task) {
-              case STEP.TASK.TASK1:
-                switch (coords) {
-                  case STEP.COORDS.COORDS1:
-                    return
-                  case STEP.COORDS.COORDS2:
-                    return
-                  case STEP.COORDS.COORDS3:
-                    return
-                  case STEP.COORDS.COORDS4:
-                    return
-                  case STEP.COORDS.COORDS5:
-                    return
-                  case STEP.COORDS.COORDS6:
-                    return
-                  case STEP.COORDS.COORDS7:
-                    return
-                  case STEP.COORDS.COORDS8:
-                    return
-                  default:
-                    break
-                }
-              case STEP.TASK.TASK2:
-                return
-              case STEP.TASK.TASK3:
-                return
-              case STEP.TASK.TASK4:
-                return
-              default:
-                break
-            }
-          case STEP.PHASE.PHASE2:
-            switch (task) {
-              case STEP.TASK.TASK1:
-                return
-              case STEP.TASK.TASK2:
-                return
-              case STEP.TASK.TASK3:
-                return
-              case STEP.TASK.TASK4:
-                return
-              default:
-                break
-            }
-          case STEP.PHASE.PHASE3:
-            switch (task) {
-              case STEP.TASK.TASK1:
-                return
-              case STEP.TASK.TASK2:
-                return
-              case STEP.TASK.TASK3:
-                return
-              case STEP.TASK.TASK4:
-                return
-              default:
-                break
-            }
-          default:
-            break
-        }
+        return <Task coords={parsedTasks[phase][task].coords} nextStep={() => getNextStepForSet1And2()} />
       case STEP.SET.SET2:
-        switch (phase) {
-          case STEP.PHASE.PHASE1:
-            return
-          case STEP.PHASE.PHASE2:
-            return
-          case STEP.PHASE.PHASE3:
-            return
-          default:
-            break
-        }
+        return <Task coords={parsedTasks[getRandomForSet(2)][task].coords} nextStep={() => getNextStepForSet1And2()} />
       case STEP.SET.SET3:
-        switch (phase) {
-          case STEP.PHASE.PHASE1:
-            return
-          case STEP.PHASE.PHASE2:
-            return
-          case STEP.PHASE.PHASE3:
-            return
-          default:
-            break
-        }
+        return <ComparisonTask coords={[]} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.SET4:
-        switch (phase) {
-          case STEP.PHASE.PHASE1:
-            return
-          case STEP.PHASE.PHASE2:
-            return
-          case STEP.PHASE.PHASE3:
-            return
-          default:
-            break
-        }
+        return <ComparisonTask coords={parsedTasks[getRandomForSet(4)][task].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.THANK_YOU:
         return <ThankYou />
-      // case STEP.WELCOME:
-      //   return <Welcome nextStep={() => setStep(step + 1)} />
-      // case STEP.QUIZ:
-      //   return <Quiz nextStep={() => setStep(step + 1)} />
-      // case STEP.PHASE1:
-      //   return <Task phaseNumber={1} taskNumber={taskNo} nextStep={() => setStep(step + 1)} />
-      // case STEP.PHASE2:
-      //   return <Task phaseNumber={2} taskNumber={taskNo} nextStep={() => setStep(step + 1)} />
-      // case STEP.PHASE3:
-      //   return <Task phaseNumber={3} taskNumber={taskNo} nextStep={() => setStep(step + 1)} />
-      // case STEP.PHASE4:
-      //   return <ComparisonTask phaseNumber={4} taskNumber={taskNo} nextStep={() => setStep(step + 1)} />
-      // case STEP.PHASE5:
-      //   return <ComparisonTask phaseNumber={5} taskNumber={taskNo} nextStep={() => setStep(step + 1)} />
-      // case STEP.PHASE6:
-      //   return <ComparisonTask phaseNumber={6} taskNumber={taskNo} nextStep={() => setStep(step + 1)} />
-      // case STEP.THANK_YOU:
-      //   return <ThankYou />
       default:
         break
     }

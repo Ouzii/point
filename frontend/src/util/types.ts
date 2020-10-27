@@ -3,8 +3,12 @@ export type User = {
     age: number
     inputDevice: string
     gender: string
-    tasks: Task[]
-    step?: number
+    tasks: Array<Task | any>
+    sets: [{ [phase: string]: Phase }, { [phase: string]: Phase }, { [phase: string]: Phase }, { [phase: string]: Phase }]
+}
+
+export type Phase = {
+    tasks: Array<Task | any>
 }
 
 export type Task = {
@@ -16,7 +20,7 @@ export type Task = {
     compareTime: number | null | undefined
     compareIod: number | null | undefined
     userValue: number | null | undefined
-    clicks: Click[]
+    clicks: Array<Click>
 }
 
 export type Click = {

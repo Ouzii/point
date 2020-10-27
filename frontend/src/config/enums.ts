@@ -12,6 +12,9 @@ export enum PHASE {
     PHASE1 = 1,
     PHASE2,
     PHASE3,
+    PHASE4,
+    PHASE5,
+    PHASE6,
 }
 
 export enum TASK {

@@ -8,7 +8,7 @@ type CanvasProps = {
 }
 export default ({ width, height, children, onClick }: CanvasProps) => {
     return (
-        <div style={{ width: width, height: height, position: 'relative', backgroundColor: 'lightgray', top: 20 }} onClick={onClick}>
+        <div style={{ width: width, height: height, position: 'relative', backgroundColor: 'lightgray' }} onClick={onClick}>
             {children}
         </div>
     )
