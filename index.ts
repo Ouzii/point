@@ -26,3 +26,4 @@ app.listen(PORT, () => {
 
 database.authenticate().then(() => console.log('Connected to DB')).catch(error => console.log(error))
 //database.sync({force: true})
+//database.sync({alter: true})

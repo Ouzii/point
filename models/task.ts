@@ -7,6 +7,7 @@ export interface TaskAttributes {
   createdAt?: Date
   updatedAt?: Date
   iod: number
+  phase: string
   compare: boolean
   time: number
   userTime: number
@@ -17,7 +18,11 @@ export interface TaskAttributes {
 
 const Task = database.define<any, TaskAttributes>('Task', {
   iod: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.DECIMAL(10,2),
+    allowNull: false
+  },
+  phase: {
+    type: DataTypes.STRING,
     allowNull: false
   },
   compare: {
