@@ -48,5 +48,6 @@ const Task = database.define<any, TaskAttributes>('Task', {
 })
 
 Task.hasMany(Click, {foreignKey: 'taskId'})
+Click.belongsTo(Task, {foreignKey: 'taskId'})
 
 export default Task
