@@ -10,16 +10,19 @@ import Quiz from './components/Quiz'
 import ComparisonTask from './components/ComparisonTask'
 import tasks from './util/tasks.json'
 import Info from './components/Info'
+import getOrder from './util/order'
 
 export default () => {
 
   const [set, setSet] = useState<number>(STEP.SET.WELCOME)
   const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE1)
   const [task, setTask] = useState<number>(STEP.TASK.TASK1)
+  const [order, setOrder] = useState<Array<number>>([])
 
   const set2Tasks: Array<number> = [STEP.PHASE.PHASE1, STEP.PHASE.PHASE2, STEP.PHASE.PHASE3]
   const set4Tasks: Array<number> = [STEP.PHASE.PHASE4, STEP.PHASE.PHASE5, STEP.PHASE.PHASE6]
   const parsedTasks = JSON.parse(JSON.stringify(tasks))
+
   useEffect(() => {
     const initUser = async () => {
       // const userId = isUserSessionAlive()
@@ -30,6 +33,7 @@ export default () => {
       // } else {
       const user = await newUser()
       if (user) {
+        setOrder(getOrder(user.id))
         setLocalData({ ...user, tasks: [], sets: [{ phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }] })
       }
       // }
@@ -142,15 +146,15 @@ export default () => {
       case STEP.SET.INFO1:
         return <Info type={INFO_TYPE.TIME_GUESS} nextStep={() => setSet(STEP.SET.SET1)} />
       case STEP.SET.SET1:
-        return <Task coords={parsedTasks[phase][task].coords} nextStep={() => getNextStepForSet1And2()} />
+        return <Task coords={parsedTasks[phase][order[task]].coords} nextStep={() => getNextStepForSet1And2()} />
       case STEP.SET.SET2:
-        return <Task coords={parsedTasks[getRandomForSet(2)][task].coords} nextStep={() => getNextStepForSet1And2()} />
+        return <Task coords={parsedTasks[getRandomForSet(2)][order[task]].coords} nextStep={() => getNextStepForSet1And2()} />
       case STEP.SET.INFO2:
         return <Info type={INFO_TYPE.TIME_COMPARISON} nextStep={() => setSet(STEP.SET.SET1)} />
       case STEP.SET.SET3:
-        return <ComparisonTask coords={parsedTasks[phase][task].coords} nextStep={() => getNextStepForSet3And4()} />
+        return <ComparisonTask coords={parsedTasks[phase][order[task]].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.SET4:
-        return <ComparisonTask coords={parsedTasks[getRandomForSet(4)][task].coords} nextStep={() => getNextStepForSet3And4()} />
+        return <ComparisonTask coords={parsedTasks[getRandomForSet(4)][order[task]].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.THANK_YOU:
         return <ThankYou />
       default:
