@@ -25,14 +25,9 @@ export default () => {
 
   useEffect(() => {
     const initUser = async () => {
-      // const userId = isUserSessionAlive()
-      // console.log(userId)
-
-      // if (typeof userId === 'number') {
-      //   setLocalData(await getUser(userId))
-      // } else {
       const user = await newUser()
       if (user) {
+        // setOrder(getOrder(4))
         setOrder(getOrder(user.id))
         setLocalData({ ...user, tasks: [], sets: [{ phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase1: { tasks: [] }, phase2: { tasks: [] }, phase3: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }, { phase4: { tasks: [] }, phase5: { tasks: [] }, phase6: { tasks: [] } }] })
       }

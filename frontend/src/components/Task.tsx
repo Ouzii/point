@@ -21,7 +21,8 @@ export default ({ coords, nextStep }: TaskProps) => {
     const [mouseOver, setMouseOver] = useState(false)
     const [taskStarted, setTaskStarted] = useState(false)
     const [taskOngoing, setTaskOngoing] = useState(true)
-    const [clicks, setClicks] = useState<{ x: number, y: number, hitCircle: boolean }[]>([])
+    const [clicks, setClicks] = useState<Array<{ x: number, y: number, hitCircle: boolean }>>([])
+    const [lastClickOffsets, setLastClickOffsets] = useState<{ x: number, y: number }>({ x: 0, y: 0 })
 
     useEffect(() => {
         setCircleNumber(STEP.COORDS.COORDS1)
@@ -31,8 +32,14 @@ export default ({ coords, nextStep }: TaskProps) => {
         timer.reset(false)
     }, [coords])
 
+    useEffect(() => {
+        console.log(lastClickOffsets)
+
+    }, [lastClickOffsets])
+
     const clickCircle = (e: MouseEvent) => {
         e.stopPropagation()
+        setLastClickOffsets({ x: coords[circleNumber].x - (e.clientX - ((window.innerWidth - CANVAS_SIZE) / 2)), y: coords[circleNumber].y - (Math.ceil(e.clientY - ((window.innerHeight - CANVAS_SIZE) / 2))) })
         setClicks([...clicks, { x: e.clientX - ((window.innerWidth - CANVAS_SIZE) / 2), y: Math.ceil(e.clientY - ((window.innerHeight - CANVAS_SIZE) / 2)), hitCircle: true }])
         if (circleNumber < 7) {
             timer.saveTime()
@@ -62,7 +69,7 @@ export default ({ coords, nextStep }: TaskProps) => {
             {taskStarted ?
                 <Canvas width={CANVAS_SIZE} height={CANVAS_SIZE} onClick={onMissClick}>
                     {taskOngoing ?
-                        <Circle width={coords[circleNumber].width} x={coords[circleNumber].x} y={coords[circleNumber].y} onClick={clickCircle} />
+                        <Circle width={coords[circleNumber].width} x={coords[circleNumber].x - lastClickOffsets.x} y={coords[circleNumber].y - lastClickOffsets.y} onClick={clickCircle} />
                         :
                         <TimeGuesser nextStep={() => nextStep()} />
                     }
