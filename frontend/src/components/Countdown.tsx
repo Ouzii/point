@@ -21,7 +21,7 @@ export default ({ onCountdownDone }: { onCountdownDone: () => void }) => {
     })
 
     return (
-        <div>
+        <div style={{ pointerEvents: 'none', fontSize: 40 }}>
             {time}
         </div>
     )
