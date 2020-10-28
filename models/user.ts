@@ -24,5 +24,6 @@ const User = database.define<any, UserAttributes>('User', {
 })
 
 User.hasMany(Task, { foreignKey: 'userId' })
+Task.belongsTo(User, {foreignKey: 'userId'})
 
 export default User
