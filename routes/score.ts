@@ -10,19 +10,20 @@ scoreRouter.get('/csv', async (req: express.Request, res: express.Response) => {
     console.log(tasks)
     res.setHeader('Content-disposition', 'attachment; filename=results.csv')
     res.setHeader('content-type', 'text/csv')
-    const parsed = tasks.map(e => ({
-        ...e.dataValues,
-        age: e.dataValues.User.dataValues.age,
-        gender: e.dataValues.User.dataValues.gender,
-        inputDevice: e.dataValues.User.dataValues.inputDevice,
-        User: undefined
-    }))
     const stream = csv.format({ headers: true })
     stream.pipe(res)
-    stream.write(Object.keys(parsed[0]))
-    parsed.forEach(e => stream.write(Object.values(e)))
+    if (tasks.length > 0) {
+        const parsed = tasks.map(e => ({
+            ...e.dataValues,
+            age: e.dataValues.User.dataValues.age,
+            gender: e.dataValues.User.dataValues.gender,
+            inputDevice: e.dataValues.User.dataValues.inputDevice,
+            User: undefined
+        }))
+        stream.write(Object.keys(parsed[0]))
+        parsed.forEach(e => stream.write(Object.values(e)))
+    }
     stream.end()
-
 })
 
 export default scoreRouter
