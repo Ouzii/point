@@ -11,9 +11,9 @@ taskRouter.get('/tasks', async (req: express.Request, res: express.Response) => 
 
 taskRouter.post('/tasks', async (req: express.Request, res: express.Response) => {
   try {
-    const { userId, iod, phase, compare, time, userTime, compareTime, compareIod, userValue, clicks } = req.body
+    const { userId, orderNumber, iod, modifier, compare, time, userTime, compareTime, compareIod, userValue, clicks } = req.body
     console.log(userId)
-    const newTask = await Task.create({ userId, iod, phase, compare, time, userTime, compareTime, compareIod, userValue })
+    const newTask = await Task.create({ userId, orderNumber, iod, modifier, compare, time, userTime, compareTime, compareIod, userValue })
     const newClicks = await Click.bulkCreate(clicks.map((c: typeof Click) => ({ ...c, taskId: newTask.id })))
     res.json({ ...newTask.dataValues, clicks: newClicks })
   } catch (error) {
