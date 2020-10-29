@@ -14,7 +14,7 @@ export default ({ onCountdownDone }: { onCountdownDone: () => void }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setNewTime()
-        }, 1000)
+        }, 400)
         return () => {
             clearTimeout(timer)
         }

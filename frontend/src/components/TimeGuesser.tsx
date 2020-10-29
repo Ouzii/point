@@ -26,6 +26,7 @@ export default ({ nextStep }: TimeGuesserProps) => {
 
     return (
         <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <h2>Kauanko tehtävässä kesti? Klikkaa aloita, ja kun tehtävään kulunut aika on mielestäsi kulunut, klikkaa lopeta.</h2>
             <button onClick={buttonClick} style={{ height: 100, width: 300, fontSize: 30 }}>{timerOn ? 'Lopeta' : 'Aloita'}</button>
         </div>
     )
