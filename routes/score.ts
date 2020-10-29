@@ -18,7 +18,7 @@ scoreRouter.get('/csv', async (req: express.Request, res: express.Response) => {
             age: e.dataValues.User.dataValues.age,
             gender: e.dataValues.User.dataValues.gender,
             inputDevice: e.dataValues.User.dataValues.inputDevice,
-            User: undefined
+            User: e.dataValues.User.dataValues.id
         }))
         stream.write(Object.keys(parsed[0]))
         parsed.forEach(e => stream.write(Object.values(e)))
