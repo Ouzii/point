@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default ({ onCountdownDone }: { onCountdownDone: () => void }) => {
-    const [time, setTime] = useState<number>(3)
+    const [time, setTime] = useState<number>(10)
 
     const setNewTime = () => {
         if (time <= 1) {
@@ -14,7 +14,7 @@ export default ({ onCountdownDone }: { onCountdownDone: () => void }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setNewTime()
-        }, 400)
+        }, 150)
         return () => {
             clearTimeout(timer)
         }
