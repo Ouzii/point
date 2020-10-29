@@ -45,7 +45,7 @@ const Task = database.define<any, TaskAttributes>('Task', {
     type: DataTypes.INTEGER,
   },
   compareIod: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.DECIMAL(10,2),
   },
   userValue: {
     type: DataTypes.INTEGER,
