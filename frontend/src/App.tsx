@@ -19,6 +19,7 @@ export default () => {
   const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE1)
   const [task, setTask] = useState<number>(STEP.TASK.TASK1)
   const [order, setOrder] = useState<Array<number>>([])
+  const [shouldSave, setShouldSave] = useState<boolean>(true)
 
   const set2Tasks: Array<number> = [STEP.PHASE.PHASE1, STEP.PHASE.PHASE2, STEP.PHASE.PHASE3]
   const set4Tasks: Array<number> = [STEP.PHASE.PHASE4, STEP.PHASE.PHASE5, STEP.PHASE.PHASE6]
@@ -68,10 +69,21 @@ export default () => {
 
   useEffect(() => {
 
+    if (!shouldSave) {
+      setShouldSave(true)
+      return
+    }
+    if (task > STEP.TASK.TASK4) {
+      setShouldSave(false)
+      setPhase(phase + 1)
+      return
+    }
+
     if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
     const currentLocalData = getLocalData()
     if (!currentLocalData) return
-
+    console.log('phase' + phase + ' task ' + task);
+    console.log(parsedTasks);
     const newTask = {
       orderNumber: parsedTasks[phase][task - 1].id,
       iod: parsedTasks[phase][task - 1].iod,
@@ -124,7 +136,7 @@ export default () => {
           setSet(set + 1)
         }
       } else {
-        setPhase(phase + 1)
+        setTask(task + 1)
       }
     } else {
       setTask(task + 1)
@@ -140,7 +152,7 @@ export default () => {
           setSet(set + 1)
         }
       } else {
-        setPhase(phase + 1)
+        setTask(task + 1)
       }
     } else {
       setTask(task + 1)
