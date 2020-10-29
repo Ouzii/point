@@ -12,6 +12,10 @@ export default (startNow: boolean) => {
         times.push(new Date().getTime())
     }
 
+    const getCurrentTime = () => {
+        return new Date().getTime() - startTime
+    }
+
     const endTimer = () => {
         times.push(new Date().getTime())
         return times
@@ -46,6 +50,7 @@ export default (startNow: boolean) => {
         getStartTime,
         getTimes,
         reset,
-        getTimeDifferences
+        getTimeDifferences,
+        getCurrentTime
     }
 }

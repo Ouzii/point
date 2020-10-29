@@ -17,6 +17,7 @@ export default ({ nextStep }: TimeGuesserProps) => {
             const guessedTime = times[times.length - 1] - times[0]
             LocalDataHandler.setItem('guessedTime', guessedTime)
             setTimerOn(false)
+            timer.reset(false)
             nextStep()
         } else {
             timer.startTimer()

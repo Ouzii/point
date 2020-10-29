@@ -24,6 +24,16 @@ export const newUser = async (): Promise<User | null> => {
     }
 }
 
+export const updateUser = async (data: any): Promise<User | null> => {
+    try {
+        const res: AxiosResponse<User> = await axios.post(`${BASE_PATH}/user_details`, data)
+        return res.data
+    } catch (e) {
+        console.log('Error updating user: ' + e)
+        return null
+    }
+}
+
 export default {
     getUser,
     newUser

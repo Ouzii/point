@@ -4,6 +4,7 @@
             "id": 11,
             "iod": 3.32,
             "compare": false,
+            "modifier": "D",
             "compareIod": null,
             "coords": [
                 {
@@ -52,6 +53,7 @@
             "id": 12,
             "iod": 4.21,
             "compare": false,
+            "modifier": "D",
             "compareIod": null,
             "coords": [
                 {
@@ -100,6 +102,7 @@
             "id": 13,
             "iod": 2.76,
             "compare": false,
+            "modifier": "D",
             "compareIod": null,
             "coords": [
                 {
@@ -148,6 +151,7 @@
             "id": 14,
             "iod": 6.4,
             "compare": false,
+            "modifier": "D",
             "compareIod": null,
             "coords": [
                 {
@@ -198,6 +202,7 @@
             "id": 21,
             "iod": 4,
             "compare": false,
+            "modifier": "W",
             "compareIod": null,
             "coords": [
                 {
@@ -246,6 +251,7 @@
             "id": 22,
             "iod": 4,
             "compare": false,
+            "modifier": "W",
             "compareIod": null,
             "coords": [
                 {
@@ -294,6 +300,7 @@
             "id": 23,
             "iod": 4,
             "compare": false,
+            "modifier": "W",
             "compareIod": null,
             "coords": [
                 {
@@ -342,6 +349,7 @@
             "id": 24,
             "iod": 4,
             "compare": false,
+            "modifier": "W",
             "compareIod": null,
             "coords": [
                 {
@@ -392,6 +400,7 @@
             "id": 31,
             "iod": 3.32,
             "compare": false,
+            "modifier": "WD",
             "compareIod": null,
             "coords": [
                 {
@@ -440,6 +449,7 @@
             "id": 31,
             "iod": 3.32,
             "compare": false,
+            "modifier": "WD",
             "compareIod": null,
             "coords": [
                 {
@@ -488,6 +498,7 @@
             "id": 31,
             "iod": 3.32,
             "compare": false,
+            "modifier": "WD",
             "compareIod": null,
             "coords": [
                 {
@@ -536,6 +547,7 @@
             "id": 31,
             "iod": 3.32,
             "compare": false,
+            "modifier": "WD",
             "compareIod": null,
             "coords": [
                 {
@@ -586,6 +598,7 @@
             "id": 11,
             "iod": 3.32,
             "compare": true,
+            "modifier": "D",
             "compareIod": 2.58,
             "coords": [
                 [

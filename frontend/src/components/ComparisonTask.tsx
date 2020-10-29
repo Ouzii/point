@@ -22,28 +22,46 @@ export default ({ coords, nextStep }: ComparisonTaskProps) => {
     const [mouseOver, setMouseOver] = useState(false)
     const [taskStarted, setTaskStarted] = useState(false)
     const [taskOngoing, setTaskOngoing] = useState(true)
-    const [clicks, setClicks] = useState<{ x: number, y: number, hitCircle: boolean }[]>([])
+    const [clicks, setClicks] = useState<{ x: number, y: number, hitCircle: boolean, time: number }[]>([])
+    const [lastClickOffsets, setLastClickOffsets] = useState<{ x: number, y: number }>({ x: 0, y: 0 })
 
     useEffect(() => {
         setCircleNumber(COORDS.COORDS1)
+        setTaskNumber(COMPARISON_TASK_NUMBER.FIRST)
         setTaskOngoing(true)
         setTaskStarted(false)
         setMouseOver(false)
         timer.reset(false)
     }, [coords])
 
+    useEffect(() => {
+        setMouseOver(false)
+        setLastClickOffsets({ x: 0, y: 0 })
+    }, [taskNumber])
+
+    useEffect(() => {
+        LocalDataHandler.setItem('clicks', clicks)
+    }, [clicks])
+
+
     const clickCircle = (e: MouseEvent) => {
         e.stopPropagation()
-        setClicks([...clicks, { x: e.clientX - ((window.innerWidth - CANVAS_SIZE) / 2), y: Math.ceil(e.clientY - ((window.innerHeight - CANVAS_SIZE) / 2)), hitCircle: true }])
+        let times
+        if (circleNumber >= 7) {
+            times = timer.endTimer()
+        }
+
+        setLastClickOffsets({ x: lastClickOffsets.x - ((coords[taskNumber][circleNumber].x + lastClickOffsets.x) - (e.clientX - ((window.innerWidth - CANVAS_SIZE) / 2))), y: lastClickOffsets.y - ((coords[taskNumber][circleNumber].y + lastClickOffsets.y) - (Math.ceil(e.clientY - ((window.innerHeight - CANVAS_SIZE) / 2)))) })
+        setClicks([...clicks, { x: e.clientX - ((window.innerWidth - CANVAS_SIZE) / 2), y: Math.ceil(e.clientY - ((window.innerHeight - CANVAS_SIZE) / 2)), hitCircle: true, time: times && circleNumber >= 7 ? times[times.length - 1] - times[0] : timer.getCurrentTime() }])
+
         if (circleNumber < 7) {
             timer.saveTime()
             setCircleNumber(circleNumber + 1)
         } else {
-            const times = timer.endTimer()
+            if (!times) return
 
             LocalDataHandler.setItem('time' + (taskNumber + 1), times[times.length - 1] - times[0])
             LocalDataHandler.setItem('times' + (taskNumber + 1), timer.getTimeDifferences())
-            LocalDataHandler.setItem('clicks' + (taskNumber + 1), clicks)
             if (taskNumber === COMPARISON_TASK_NUMBER.FIRST) {
                 setCircleNumber(COORDS.COORDS1)
                 setTaskStarted(false)
@@ -56,7 +74,7 @@ export default ({ coords, nextStep }: ComparisonTaskProps) => {
 
     const onMissClick = (e: MouseEvent) => {
         e.stopPropagation()
-        setClicks([...clicks, { x: e.clientX - ((window.innerWidth - CANVAS_SIZE) / 2), y: Math.ceil(e.clientY - ((window.innerHeight - CANVAS_SIZE) / 2)), hitCircle: false }])
+        setClicks([...clicks, { x: e.clientX - ((window.innerWidth - CANVAS_SIZE) / 2), y: Math.ceil(e.clientY - ((window.innerHeight - CANVAS_SIZE) / 2)), hitCircle: false, time: timer.getCurrentTime() }])
     }
 
     const startTask = () => {
@@ -66,11 +84,11 @@ export default ({ coords, nextStep }: ComparisonTaskProps) => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', flexDirection: 'column' }}>
-            <h1>{taskOngoing ? taskNumber === 0 ? 'A' : 'B' : ''}</h1>
+            <h1 style={{ position: 'absolute', top: 10, zIndex: 99 }}>{taskOngoing ? taskNumber === 0 ? 'A' : 'B' : ''}</h1>
             {taskStarted ?
                 <Canvas width={CANVAS_SIZE} height={CANVAS_SIZE} onClick={onMissClick}>
                     {taskOngoing ?
-                        <Circle width={coords[taskNumber][circleNumber].width} x={coords[taskNumber][circleNumber].x} y={coords[taskNumber][circleNumber].y} onClick={clickCircle} />
+                        <Circle width={coords[taskNumber][circleNumber].width} x={coords[taskNumber][circleNumber].x + lastClickOffsets.x} y={coords[taskNumber][circleNumber].y + lastClickOffsets.y} onClick={clickCircle} />
                         :
                         <TimeComparison nextStep={() => nextStep()} />
                     }

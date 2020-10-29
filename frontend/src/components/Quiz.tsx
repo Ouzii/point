@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { getLocalData, setLocalData } from '../functions/LocalDataHandler'
+import { updateUser } from '../services/userService'
 
 type QuizProps = {
     nextStep: () => void
@@ -16,8 +18,20 @@ export default ({ nextStep }: QuizProps) => {
     const onSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
 
+        const currentLocalData = getLocalData()
+        currentLocalData.age = Number.parseInt(formValues.age)
+        currentLocalData.gender = formValues.gender
+        currentLocalData.inputDevice = formValues.inputDevice
+
+        if (sendUserUpdate({ id: currentLocalData.id, ...formValues })) setLocalData(currentLocalData)
 
         nextStep()
+    }
+
+    const sendUserUpdate = async (data: any) => {
+        const res = await updateUser(data)
+        if (res) return true
+        return false
     }
     return (
         <div style={{ width: '50%', height: '60%', display: "flex", justifyContent: 'center', alignItems: 'center' }}>

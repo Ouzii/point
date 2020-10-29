@@ -10,6 +10,10 @@ const parse = (input: string | object | null) => {
     }
 }
 
+export const clearLocalStorage = () => {
+    window.localStorage.clear()
+}
+
 export const isUserSessionAlive = (): number | boolean => {
     const user = getLocalData()
     return user ? user.id : false

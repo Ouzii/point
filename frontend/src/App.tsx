@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-import LocalDataHandler, { setLocalData, getLocalData, getItem } from './functions/LocalDataHandler'
+import LocalDataHandler, { setLocalData, getLocalData, getItem, setItem } from './functions/LocalDataHandler'
 import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
 import { newUser } from './services/userService'
@@ -11,6 +11,7 @@ import ComparisonTask from './components/ComparisonTask'
 import tasks from './util/tasks.json'
 import Info from './components/Info'
 import getOrder from './util/order'
+import { addTaskToUser } from './services/taskService'
 
 export default () => {
 
@@ -63,6 +64,8 @@ export default () => {
     // eslint-disable-next-line
   }, [phase])
 
+
+
   useEffect(() => {
 
     if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
@@ -70,26 +73,38 @@ export default () => {
     if (!currentLocalData) return
 
     const newTask = {
-      id: parsedTasks[phase][task - 1].id,
+      orderNumber: parsedTasks[phase][task - 1].id,
       iod: parsedTasks[phase][task - 1].iod,
+      modifier: parsedTasks[phase][task - 1].modifier,
       compare: parsedTasks[phase][task - 1].compare,
       time: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? getItem('time1') : getItem('time'),
       userTime: getItem('guessedTime'),
       compareTime: set === STEP.SET.SET3 || set === STEP.SET.SET4 ? getItem('time2') : null,
       compareIod: parsedTasks[phase][task - 1].compareIod,
-      userValue: getItem('compareValue'),
+      userValue: parsedTasks[phase][task - 1].compare ? getItem('compareValue') : null,
       clicks: getItem('clicks')
     }
 
-    currentLocalData.sets[set - 2][getPhaseString(phase)].tasks.push(newTask)
+    currentLocalData.sets[set - 3][getPhaseString(phase)].tasks.push(newTask)
     currentLocalData.tasks.push(newTask)
 
-    LocalDataHandler.setLocalData(currentLocalData)
-
+    if (sendNewTask({ userId: currentLocalData.id, ...newTask })) {
+      LocalDataHandler.setLocalData(currentLocalData)
+      setItem('guessedTime', null)
+      setItem('time', null)
+      setItem('time1', null)
+      setItem('time2', null)
+      setItem('compareValue', null)
+      setItem('clicks', null)
+    }
     // eslint-disable-next-line
   }, [task])
 
 
+  const sendNewTask = async (taskData: any) => {
+    await addTaskToUser(taskData)
+    return true
+  }
   const getRandomForSet = (set: number) => {
     const taskList = set === 2 ? set2Tasks : set === 4 ? set4Tasks : []
     const index = Math.floor(Math.random() * taskList.length)
@@ -147,7 +162,7 @@ export default () => {
       case STEP.SET.INFO2:
         return <Info type={INFO_TYPE.TIME_COMPARISON} nextStep={() => setSet(STEP.SET.SET1)} />
       case STEP.SET.SET3:
-        return <ComparisonTask coords={parsedTasks[phase][order[task]].coords} nextStep={() => getNextStepForSet3And4()} />
+        return <ComparisonTask coords={parsedTasks["4"][0].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.SET4:
         return <ComparisonTask coords={parsedTasks[getRandomForSet(4)][order[task]].coords} nextStep={() => getNextStepForSet3And4()} />
       case STEP.SET.THANK_YOU:
