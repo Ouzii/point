@@ -34,11 +34,6 @@ export default ({ coords, nextStep }: TaskProps) => {
     }, [coords])
 
     useEffect(() => {
-        console.log(lastClickOffsets)
-
-    }, [lastClickOffsets])
-
-    useEffect(() => {
         LocalDataHandler.setItem('clicks', clicks)
     }, [clicks])
 

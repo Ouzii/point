@@ -16,7 +16,7 @@ export default ({ type, nextStep }: InfoProps) => {
     }
 
     return (
-        <div>
+        <div style={{ marginTop: -300 }}>
             {renderInfoText()}
             <button onClick={() => nextStep()}>Jatka</button>
         </div>
