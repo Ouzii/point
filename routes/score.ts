@@ -1,7 +1,7 @@
 import express from 'express'
 import * as csv from 'fast-csv'
 import Task from '../models/task'
-import User from '../models/User'
+import User from '../models/user'
 
 const scoreRouter = express.Router()
 
