@@ -24,3 +24,4 @@
 /frontend/yarn-error.log*
 
 .env
+.DS_Store
