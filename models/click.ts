@@ -9,8 +9,6 @@ export interface ClickAttributes {
   x: number
   y: number
   ball: boolean
-  ballX: number
-  ballY: number
 }
 
 const Click = database.define<any, ClickAttributes>('Click', {
@@ -29,12 +27,6 @@ const Click = database.define<any, ClickAttributes>('Click', {
   ball: {
     type: DataTypes.BOOLEAN,
     allowNull: false
-  },
-  ballX: {
-    type: DataTypes.INTEGER
-  },
-  ballY: {
-    type: DataTypes.INTEGER
   }
 })
 
