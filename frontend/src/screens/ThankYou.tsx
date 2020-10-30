@@ -1,5 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { clearLocalStorage } from '../functions/LocalDataHandler'
 
 export default () => {
-    return <div>Thankyoucomeagain</div>
+
+    useEffect(() => {
+        clearLocalStorage()
+    }, [])
+    return <div>Kiitos osallistumisestasi! Voit nyt sulkea selainikkunan.</div>
 }
