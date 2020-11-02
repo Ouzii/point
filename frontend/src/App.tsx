@@ -22,9 +22,9 @@ const parsedTasks = JSON.parse(JSON.stringify(tasks))
 export default () => {
 
   const [set, setSet] = useState<number>(STEP.SET.WELCOME)
-  const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE6)
-  const [task, setTask] = useState<number>(STEP.TASK.TASK3)
-  const [order, setOrder] = useState<Array<number>>([])
+  const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE1)
+  const [task, setTask] = useState<number>(STEP.TASK.TASK1)
+  const [order, setOrder] = useState<Array<number>>([0, 1, 2, 3])
 
 
   useEffect(() => {
@@ -47,9 +47,10 @@ export default () => {
   }
 
   useEffect(() => {
-    if (set === STEP.SET.INFO2) {
+    if (set === STEP.SET.INFO2 || set === STEP.SET.THANK_YOU) {
       setPhase(STEP.PHASE.PHASE4)
       setTask(STEP.TASK.TASK1)
+      return
     }
 
     if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
@@ -60,8 +61,6 @@ export default () => {
       return
     }
     if (set >= STEP.SET.SET3 && set <= STEP.SET.SET4) {
-      console.log('löolo')
-
       setPhase(STEP.PHASE.PHASE4)
       setTask(STEP.TASK.TASK1)
       return
@@ -77,9 +76,6 @@ export default () => {
 
 
   useEffect(() => {
-    console.log(task)
-    console.log(phase)
-    console.log(set)
 
     if (task - 1 > STEP.TASK.TASK4) {
       if ((phase >= STEP.PHASE.PHASE3 && set <= STEP.SET.SET2) || (phase >= STEP.PHASE.PHASE6 && set >= STEP.SET.SET3)) {
@@ -149,8 +145,6 @@ export default () => {
   }
 
   const renderContent = () => {
-
-    console.log(order[task])
 
     if (task > STEP.TASK.TASK4) return <div />
     switch (set) {

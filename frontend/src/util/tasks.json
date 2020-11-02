@@ -598,7 +598,7 @@
             "id": 41,
             "iod": 2.76,
             "compare": true,
-            "modifier": "",
+            "modifier": "D",
             "compareIod": 3.32,
             "coords": [
                 [
