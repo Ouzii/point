@@ -22,8 +22,8 @@ const parsedTasks = JSON.parse(JSON.stringify(tasks))
 export default () => {
 
   const [set, setSet] = useState<number>(STEP.SET.WELCOME)
-  const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE1)
-  const [task, setTask] = useState<number>(STEP.TASK.TASK1)
+  const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE6)
+  const [task, setTask] = useState<number>(STEP.TASK.TASK3)
   const [order, setOrder] = useState<Array<number>>([])
 
 
@@ -47,15 +47,24 @@ export default () => {
   }
 
   useEffect(() => {
+    if (set === STEP.SET.INFO2) {
+      setPhase(STEP.PHASE.PHASE4)
+      setTask(STEP.TASK.TASK1)
+    }
+
     if (set < STEP.SET.SET1 || set > STEP.SET.SET4) return
 
     if (set >= STEP.SET.SET1 && set <= STEP.SET.SET2) {
       setPhase(STEP.PHASE.PHASE1)
       setTask(STEP.TASK.TASK1)
+      return
     }
     if (set >= STEP.SET.SET3 && set <= STEP.SET.SET4) {
+      console.log('löolo')
+
       setPhase(STEP.PHASE.PHASE4)
       setTask(STEP.TASK.TASK1)
+      return
     }
     // eslint-disable-next-line
   }, [set])
@@ -68,6 +77,10 @@ export default () => {
 
 
   useEffect(() => {
+    console.log(task)
+    console.log(phase)
+    console.log(set)
+
     if (task - 1 > STEP.TASK.TASK4) {
       if ((phase >= STEP.PHASE.PHASE3 && set <= STEP.SET.SET2) || (phase >= STEP.PHASE.PHASE6 && set >= STEP.SET.SET3)) {
         setSet(set + 1)
@@ -97,19 +110,21 @@ export default () => {
       }
     } else {
       newTask = {
-        orderNumber: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 1]][order[task - 1]].id,
-        iod: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 1]][order[task - 1]].iod,
-        modifier: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 1]][order[task - 1]].modifier,
-        compare: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 1]][order[task - 1]].compare,
+        orderNumber: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].id,
+        iod: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].iod,
+        modifier: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].modifier,
+        compare: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compare,
         time: set === STEP.SET.SET4 ? getItem('time1') : getItem('time'),
         userTime: getItem('guessedTime'),
         compareTime: set === STEP.SET.SET4 ? getItem('time2') : null,
-        compareIod: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 1]][order[task - 1]].compareIod,
-        userValue: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 1]][order[task - 1]].compare ? getItem('compareValue') : null,
+        compareIod: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compareIod,
+        userValue: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compare ? getItem('compareValue') : null,
         clicks: getItem('clicks')
       }
     }
-    currentLocalData.sets[set - 3][getPhaseString(phase)].tasks.push(newTask)
+    let offSet = 3
+    if (set >= 5) offSet = 4
+    currentLocalData.sets[set - offSet][getPhaseString(phase)].tasks.push(newTask)
     currentLocalData.tasks.push(newTask)
 
 
@@ -134,10 +149,13 @@ export default () => {
   }
 
   const renderContent = () => {
+
+    console.log(order[task])
+
     if (task > STEP.TASK.TASK4) return <div />
     switch (set) {
       case STEP.SET.WELCOME:
-        return <Welcome nextStep={() => setSet(STEP.SET.QUIZ)} />
+        return <Welcome nextStep={() => setSet(STEP.SET.SET3)} />
       case STEP.SET.QUIZ:
         return <Quiz nextStep={() => setSet(STEP.SET.INFO1)} />
       case STEP.SET.INFO1:
@@ -151,7 +169,7 @@ export default () => {
       case STEP.SET.SET3:
         return <ComparisonTask coords={parsedTasks[phase][order[task]].coords} nextStep={() => setTask(task + 1)} />
       case STEP.SET.SET4:
-        return <ComparisonTask coords={parsedTasks[set4Tasks[phase - 1]][order[task]].coords} nextStep={() => setTask(task + 1)} />
+        return <ComparisonTask coords={parsedTasks[set4Tasks[phase - 4]][order[task]].coords} nextStep={() => setTask(task + 1)} />
       case STEP.SET.THANK_YOU:
         return <ThankYou />
       default:
