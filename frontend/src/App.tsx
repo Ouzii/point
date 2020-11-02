@@ -149,7 +149,7 @@ export default () => {
     if (task > STEP.TASK.TASK4) return <div />
     switch (set) {
       case STEP.SET.WELCOME:
-        return <Welcome nextStep={() => setSet(STEP.SET.SET3)} />
+        return <Welcome nextStep={() => setSet(STEP.SET.QUIZ)} />
       case STEP.SET.QUIZ:
         return <Quiz nextStep={() => setSet(STEP.SET.INFO1)} />
       case STEP.SET.INFO1:
