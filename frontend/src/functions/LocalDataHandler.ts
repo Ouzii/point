@@ -1,7 +1,9 @@
 import { Click, User, Task } from '../util/types'
 
 const parse = (input: string | object | null) => {
-    if (typeof input === 'string') {
+    if (input === null || input === undefined) {
+        return null
+    }else if (typeof input === 'string') {
         return JSON.parse(input)
     } else if (typeof input === 'object' || typeof input === 'number' || Array.isArray(input)) {
         return JSON.stringify(input)
