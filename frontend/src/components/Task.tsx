@@ -7,6 +7,7 @@ import LocalDataHandler from '../functions/LocalDataHandler'
 import Countdown from './Countdown'
 import STEP from '../config/enums'
 import { CANVAS_SIZE } from '../config/settings'
+import { createLogicalAnd } from 'typescript'
 
 type TaskProps = {
     coords: Array<any>
@@ -32,6 +33,7 @@ export default ({ coords, nextStep, training }: TaskProps) => {
         setTaskStarted(false)
         setMouseOver(false)
         timer.reset(false)
+        setClicks([])
     }, [coords])
 
     useEffect(() => {
@@ -67,7 +69,7 @@ export default ({ coords, nextStep, training }: TaskProps) => {
         setTaskStarted(true)
         timer.startTimer()
     }
-
+console.log(clicks)
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
             {training && <h2 style={{ position: 'absolute', top: 30 }}>HARJOITUS</h2>}

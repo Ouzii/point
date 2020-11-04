@@ -33,6 +33,7 @@ export default ({ coords, nextStep, training }: ComparisonTaskProps) => {
         setTaskStarted(false)
         setMouseOver(false)
         timer.reset(false)
+        setClicks([])
     }, [coords])
 
     useEffect(() => {
