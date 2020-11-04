@@ -2,9 +2,11 @@ export enum SET {
     WELCOME = 0,
     QUIZ,
     INFO1,
+    TRAINING1,
     SET1,
     SET2,
     INFO2,
+    TRAINING2,
     SET3,
     SET4,
     THANK_YOU

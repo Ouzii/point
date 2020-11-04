@@ -11,11 +11,12 @@ import TimeComparison from './TimeComparison'
 type ComparisonTaskProps = {
     coords: Array<any>
     nextStep: () => void
+    training?: boolean
 }
 
 const timer = Timer(false)
 
-export default ({ coords, nextStep }: ComparisonTaskProps) => {
+export default ({ coords, nextStep, training }: ComparisonTaskProps) => {
 
     const [circleNumber, setCircleNumber] = useState(COORDS.COORDS1)
     const [taskNumber, setTaskNumber] = useState(COMPARISON_TASK_NUMBER.FIRST)
@@ -84,7 +85,8 @@ export default ({ coords, nextStep }: ComparisonTaskProps) => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', flexDirection: 'column' }}>
-            <h1 style={{ position: 'absolute', top: 10, zIndex: 99 }}>{taskOngoing ? taskNumber === 0 ? 'A' : 'B' : ''}</h1>
+            {training && <h2 style={{ position: 'absolute', top: 50 }}>HARJOITUS</h2>}
+            <h1 style={{ position: 'absolute', top: 20, zIndex: 99 }}>{taskOngoing ? taskNumber === 0 ? 'A' : 'B' : ''}</h1>
             {taskStarted ?
                 <Canvas width={CANVAS_SIZE} height={CANVAS_SIZE} onClick={onMissClick}>
                     {taskOngoing ?

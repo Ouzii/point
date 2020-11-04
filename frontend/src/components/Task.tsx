@@ -11,11 +11,12 @@ import { CANVAS_SIZE } from '../config/settings'
 type TaskProps = {
     coords: Array<any>
     nextStep: () => void
+    training?: boolean
 }
 
 const timer = Timer(false)
 
-export default ({ coords, nextStep }: TaskProps) => {
+export default ({ coords, nextStep, training }: TaskProps) => {
 
     const [circleNumber, setCircleNumber] = useState(STEP.COORDS.COORDS1)
     const [mouseOver, setMouseOver] = useState(false)
@@ -69,6 +70,7 @@ export default ({ coords, nextStep }: TaskProps) => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
+            {training && <h2 style={{ position: 'absolute', top: 30 }}>HARJOITUS</h2>}
             {taskStarted ?
                 <Canvas width={CANVAS_SIZE} height={CANVAS_SIZE} onClick={onMissClick}>
                     {taskOngoing ?

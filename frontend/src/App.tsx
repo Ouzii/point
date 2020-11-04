@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-import LocalDataHandler, { setLocalData, getLocalData, getItem, setItem, resetShortTimeValues } from './functions/LocalDataHandler'
+import LocalDataHandler, { setLocalData, getLocalData, getItem, resetShortTimeValues } from './functions/LocalDataHandler'
 import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
 import { newUser } from './services/userService'
@@ -27,6 +27,7 @@ export default () => {
   const [task, setTask] = useState<number>(STEP.TASK.TASK1)
   const [order, setOrder] = useState<Array<number>>([0, 1, 2, 3])
   const [progress, setProgress] = useState<number>(1)
+  const [trainingTask, setTrainingTask] = useState<number>(0)
 
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export default () => {
   }
 
   useEffect(() => {
-    if (set === STEP.SET.INFO2 || set === STEP.SET.THANK_YOU) {
+    if (set === STEP.SET.INFO2 || set === STEP.SET.TRAINING2 || set === STEP.SET.THANK_YOU) {
       setPhase(STEP.PHASE.PHASE4)
       setTask(STEP.TASK.TASK1)
       return
@@ -76,6 +77,16 @@ export default () => {
     // eslint-disable-next-line
   }, [phase])
 
+  useEffect(() => {
+    if (trainingTask >= 2) {
+      setSet(set + 1)
+      setTrainingTask(0)
+    } else {
+
+    }
+    // eslint-disable-next-line
+  }, [trainingTask])
+
 
   useEffect(() => {
     setProgress(progress + 1)
@@ -99,10 +110,14 @@ export default () => {
         iod: parsedTasks[phase][order[task - 1]].iod,
         modifier: parsedTasks[phase][order[task - 1]].modifier,
         compare: parsedTasks[phase][order[task - 1]].compare,
+        width: parsedTasks[phase][order[task - 1]].width,
+        distance: parsedTasks[phase][order[task - 1]].distance,
         time: set === STEP.SET.SET3 ? getItem('time1') : getItem('time'),
         userTime: getItem('guessedTime'),
         compareTime: set === STEP.SET.SET3 ? getItem('time2') : null,
         compareIod: parsedTasks[phase][order[task - 1]].compareIod,
+        compareWidth: parsedTasks[phase][order[task - 1]].compareWidth,
+        compareDistance: parsedTasks[phase][order[task - 1]].compareDistance,
         userValue: parsedTasks[phase][order[task - 1]].compare ? getItem('compareValue') : null,
         clicks: getItem('clicks')
       }
@@ -112,16 +127,20 @@ export default () => {
         iod: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].iod,
         modifier: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].modifier,
         compare: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compare,
+        width: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].width,
+        distance: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].distance,
         time: set === STEP.SET.SET4 ? getItem('time1') : getItem('time'),
         userTime: getItem('guessedTime'),
         compareTime: set === STEP.SET.SET4 ? getItem('time2') : null,
         compareIod: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compareIod,
+        compareWidth: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compareWidth,
+        compareDistance: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compareDistance,
         userValue: parsedTasks[set === STEP.SET.SET2 ? set2Tasks[phase - 1] : set4Tasks[phase - 4]][order[task - 1]].compare ? getItem('compareValue') : null,
         clicks: getItem('clicks')
       }
     }
-    let offSet = 3
-    if (set >= 5) offSet = 4
+    let offSet = 4
+    if (set >= STEP.SET.TRAINING2) offSet = 6
     currentLocalData.sets[set - offSet][getPhaseString(phase)].tasks.push(newTask)
     currentLocalData.tasks.push(newTask)
 
@@ -150,13 +169,17 @@ export default () => {
       case STEP.SET.QUIZ:
         return <Quiz nextStep={() => setSet(STEP.SET.INFO1)} />
       case STEP.SET.INFO1:
-        return <Info type={INFO_TYPE.TIME_GUESS} nextStep={() => setSet(STEP.SET.SET1)} />
+        return <Info type={INFO_TYPE.TIME_GUESS} nextStep={() => setSet(STEP.SET.TRAINING1)} />
+      case STEP.SET.TRAINING1:
+        return <Task coords={parsedTasks.training[trainingTask].coords} nextStep={() => setTrainingTask(trainingTask + 1)} training />
       case STEP.SET.SET1:
         return <Task coords={parsedTasks[phase][order[task]].coords} nextStep={() => setTask(task + 1)} />
       case STEP.SET.SET2:
         return <Task coords={parsedTasks[set2Tasks[phase - 1]][order[task]].coords} nextStep={() => setTask(task + 1)} />
       case STEP.SET.INFO2:
-        return <Info type={INFO_TYPE.TIME_COMPARISON} nextStep={() => setSet(STEP.SET.SET3)} />
+        return <Info type={INFO_TYPE.TIME_COMPARISON} nextStep={() => setSet(STEP.SET.TRAINING2)} />
+      case STEP.SET.TRAINING2:
+        return <ComparisonTask coords={parsedTasks.training[trainingTask + 2].coords} nextStep={() => setTrainingTask(trainingTask + 1)} training />
       case STEP.SET.SET3:
         return <ComparisonTask coords={parsedTasks[phase][order[task]].coords} nextStep={() => setTask(task + 1)} />
       case STEP.SET.SET4:

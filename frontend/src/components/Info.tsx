@@ -14,6 +14,7 @@ export default ({ type, nextStep }: InfoProps) => {
                 <h1>Kun niitä on klikkailtu seuraa vaihe, jossa arvioidaan kauanko tehtävä vei aikaa.</h1>
                 <h1>Tämä toistuu useita kertoja. Setin läpäiseminen edellyttää satoja klikkauksia.</h1>
                 <h1>Arvioitu suoritusaika on välineestä riippuen puolesta tunnista tuntiin.</h1>
+                <h1>Ensimmäiset kaksi tehtävää ovat harjoituksia. Harjoituksien aikana ruudun yläreunassa lukee "HARJOITUS".</h1>
             </div>
         } else if (type === INFO_TYPE.TIME_COMPARISON) {
             return <div>
@@ -23,7 +24,8 @@ export default ({ type, nextStep }: InfoProps) => {
                 <h1>Tämä toistuu useita kertoja.</h1>
                 <h1>Huolellisuus palkitaan ja kaikki tehtävät huolellisesti suorittaneet osallistujat palkitaan mahdollisuudella osallistua vihreillä palloilla tehtävään kokeeseen.</h1>
                 <h1>Tutkimuksen tuloksia hyödynnetään tieteellisessä tutkimuksessa.</h1>
-                <h1>Klikkauksia punaisiin palloihin jäljellä: 384</h1>         
+                <h1>Klikkauksia punaisiin palloihin jäljellä: 384</h1>
+                <h1>Ensimmäiset kaksi tehtävää ovat harjoituksia. Harjoituksien aikana ruudun yläreunassa lukee "HARJOITUS".</h1>
             </div>
         }
     }

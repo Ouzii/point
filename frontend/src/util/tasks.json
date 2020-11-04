@@ -6,6 +6,8 @@
             "compare": false,
             "modifier": "D",
             "compareIod": null,
+            "width": 80,
+            "distance": 270.9585,
             "coords": [
                 {
                     "x": 100,
@@ -54,6 +56,8 @@
             "iod": 3.32,
             "compare": false,
             "modifier": "D",
+            "width": 80,
+            "distance": 399.4657756,
             "compareIod": null,
             "coords": [
                 {
@@ -103,6 +107,8 @@
             "iod": 3.61,
             "compare": false,
             "modifier": "D",
+            "width": 80,
+            "distance": 488.4029469,
             "compareIod": null,
             "coords": [
                 {
@@ -152,6 +158,8 @@
             "iod": 3.9,
             "compare": false,
             "modifier": "D",
+            "width": 80,
+            "distance": 597.1411146,
             "compareIod": null,
             "coords": [
                 {
@@ -203,6 +211,8 @@
             "iod": 2.76,
             "compare": false,
             "modifier": "W",
+            "width": 105.0199538,
+            "distance": 400,
             "compareIod": null,
             "coords": [
                 {
@@ -252,6 +262,8 @@
             "iod": 3.32,
             "compare": false,
             "modifier": "W",
+            "width": 72.57947452,
+            "distance": 400,
             "compareIod": null,
             "coords": [
                 {
@@ -301,6 +313,8 @@
             "iod": 3.61,
             "compare": false,
             "modifier": "W",
+            "width": 61.38688316,
+            "distance": 400,
             "compareIod": null,
             "coords": [
                 {
@@ -350,6 +364,8 @@
             "iod": 3.9,
             "compare": false,
             "modifier": "W",
+            "width": 52.59697567,
+            "distance": 400,
             "compareIod": null,
             "coords": [
                 {
@@ -401,6 +417,8 @@
             "iod": 2.76,
             "compare": false,
             "modifier": "WD",
+            "width": 131.2749422,
+            "distance": 500,
             "compareIod": null,
             "coords": [
                 {
@@ -450,6 +468,8 @@
             "iod": 3.32,
             "compare": false,
             "modifier": "WD",
+            "width": 54.43460589,
+            "distance": 300,
             "compareIod": null,
             "coords": [
                 {
@@ -499,6 +519,8 @@
             "iod": 3.61,
             "compare": false,
             "modifier": "WD",
+            "width": 30.69344158,
+            "distance": 200,
             "compareIod": null,
             "coords": [
                 {
@@ -548,6 +570,8 @@
             "iod": 3.9,
             "compare": false,
             "modifier": "WD",
+            "width": 78.89546351,
+            "distance": 600,
             "compareIod": null,
             "coords": [
                 {
@@ -599,6 +623,10 @@
             "iod": 2.76,
             "compare": true,
             "modifier": "D",
+            "width": 80,
+            "distance": 270.9585,
+            "compareWidth": 80,
+            "compareDistance": 399.4657756,
             "compareIod": 3.32,
             "coords": [
                 [
@@ -692,6 +720,10 @@
             "iod": 3.61,
             "compare": true,
             "modifier": "D",
+            "width": 80,
+            "distance": 488.4029469,
+            "compareWidth": 80,
+            "compareDistance": 597.1411146,
             "compareIod": 3.9,
             "coords": [
                 [
@@ -785,7 +817,11 @@
             "iod": 3.61,
             "compare": true,
             "modifier": "D",
-            "compareIod": 2.76,
+            "width": 80,
+            "distance": 488.4029469,
+            "compareWidth": 80,
+            "compareDistance": 488.4029469,
+            "compareIod": 3.61,
             "coords": [
                 [
                     {
@@ -836,18 +872,18 @@
                         "width": 80
                     },
                     {
-                        "x": 370.9585,
+                        "x": 588.4029469,
                         "y": 100,
                         "width": 80
                     },
                     {
-                        "x": 370.9585,
-                        "y": 370.9585,
+                        "x": 588.4029469,
+                        "y": 588.4029469,
                         "width": 80
                     },
                     {
                         "x": 100,
-                        "y": 370.9585,
+                        "y": 588.4029469,
                         "width": 80
                     },
                     {
@@ -856,18 +892,18 @@
                         "width": 80
                     },
                     {
-                        "x": 370.9585,
+                        "x": 588.4029469,
                         "y": 100,
                         "width": 80
                     },
                     {
-                        "x": 370.9585,
-                        "y": 370.9585,
+                        "x": 588.4029469,
+                        "y": 588.4029469,
                         "width": 80
                     },
                     {
                         "x": 100,
-                        "y": 370.9585,
+                        "y": 588.4029469,
                         "width": 80
                     }
                 ]
@@ -878,6 +914,10 @@
             "iod": 3.9,
             "compare": true,
             "modifier": "D",
+            "width": 80,
+            "distance": 597.1411146,
+            "compareWidth": 80,
+            "compareDistance": 270.9585,
             "compareIod": 2.76,
             "coords": [
                 [
@@ -973,6 +1013,10 @@
             "iod": 2.76,
             "compare": true,
             "modifier": "W",
+            "width": 105.0199538,
+            "distance": 400,
+            "compareWidth": 52.59697567,
+            "compareDistance": 400,
             "compareIod": 3.9,
             "coords": [
                 [
@@ -1066,6 +1110,10 @@
             "iod": 2.76,
             "compare": true,
             "modifier": "W",
+            "width": 105.0199538,
+            "distance": 400,
+            "compareWidth": 72.57947452,
+            "compareDistance": 400,
             "compareIod": 3.32,
             "coords": [
                 [
@@ -1159,6 +1207,10 @@
             "iod": 3.9,
             "compare": true,
             "modifier": "W",
+            "width": 52.59697567,
+            "distance": 400,
+            "compareWidth": 61.38688316,
+            "compareDistance": 400,
             "compareIod": 3.61,
             "coords": [
                 [
@@ -1252,6 +1304,10 @@
             "iod": 3.61,
             "compare": true,
             "modifier": "W",
+            "width": 61.38688316,
+            "distance": 400,
+            "compareWidth": 105.0199538,
+            "compareDistance": 400,
             "compareIod": 2.76,
             "coords": [
                 [
@@ -1347,6 +1403,10 @@
             "iod": 3.9,
             "compare": true,
             "modifier": "WD",
+            "width": 78.89546351,
+            "distance": 600,
+            "compareWidth": 131.2749422,
+            "compareDistance": 500,
             "compareIod": 2.76,
             "coords": [
                 [
@@ -1440,6 +1500,10 @@
             "iod": 3.32,
             "compare": true,
             "modifier": "WD",
+            "width": 72.57947452,
+            "distance": 400,
+            "compareWidth": 80,
+            "compareDistance": 399.4657756,
             "compareIod": 3.32,
             "coords": [
                 [
@@ -1533,7 +1597,11 @@
             "iod": 3.61,
             "compare": true,
             "modifier": "WD",
-            "compareIod": 2.76,
+            "width": 30.69344158,
+            "distance": 200,
+            "compareWidth": 80,
+            "compareDistance": 488.4029469,
+            "compareIod": 3.61,
             "coords": [
                 [
                     {
@@ -1581,42 +1649,42 @@
                     {
                         "x": 100,
                         "y": 100,
-                        "width": 131.2749422
+                        "width": 80
                     },
                     {
-                        "x": 600,
+                        "x": 588.4029469,
                         "y": 100,
-                        "width": 131.2749422
+                        "width": 80
                     },
                     {
-                        "x": 600,
-                        "y": 600,
-                        "width": 131.2749422
+                        "x": 588.4029469,
+                        "y": 588.4029469,
+                        "width": 80
                     },
                     {
                         "x": 100,
-                        "y": 600,
-                        "width": 131.2749422
+                        "y": 588.4029469,
+                        "width": 80
                     },
                     {
                         "x": 100,
                         "y": 100,
-                        "width": 131.2749422
+                        "width": 80
                     },
                     {
-                        "x": 600,
+                        "x": 588.4029469,
                         "y": 100,
-                        "width": 131.2749422
+                        "width": 80
                     },
                     {
-                        "x": 600,
-                        "y": 600,
-                        "width": 131.2749422
+                        "x": 588.4029469,
+                        "y": 588.4029469,
+                        "width": 80
                     },
                     {
                         "x": 100,
-                        "y": 600,
-                        "width": 131.2749422
+                        "y": 588.4029469,
+                        "width": 80
                     }
                 ]
             ]
@@ -1626,6 +1694,10 @@
             "iod": 3.32,
             "compare": true,
             "modifier": "WD",
+            "width": 54.43460589,
+            "distance": 300,
+            "compareWidth": 78.89546351,
+            "compareDistance": 600,
             "compareIod": 3.9,
             "coords": [
                 [
@@ -1712,6 +1784,303 @@
                         "width": 78.89546351
                     }
                 ]
+            ]
+        }
+    ],
+    "training": [
+        {
+            "id": 1,
+            "iod": 2.76,
+            "compare": false,
+            "modifier": "D",
+            "compareIod": null,
+            "coords": [
+                {
+                    "x": 100,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 370.9585,
+                    "width": 80
+                },
+                {
+                    "x": 100,
+                    "y": 370.9585,
+                    "width": 80
+                },
+                {
+                    "x": 100,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 370.9585,
+                    "width": 80
+                },
+                {
+                    "x": 100,
+                    "y": 370.9585,
+                    "width": 80
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "iod": 2.76,
+            "compare": false,
+            "modifier": "D",
+            "compareIod": null,
+            "coords": [
+                {
+                    "x": 100,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 370.9585,
+                    "width": 80
+                },
+                {
+                    "x": 100,
+                    "y": 370.9585,
+                    "width": 80
+                },
+                {
+                    "x": 100,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 100,
+                    "width": 80
+                },
+                {
+                    "x": 370.9585,
+                    "y": 370.9585,
+                    "width": 80
+                },
+                {
+                    "x": 100,
+                    "y": 370.9585,
+                    "width": 80
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "iod": 2.76,
+            "compare": true,
+            "modifier": "D",
+            "compareIod": 3.32,
+            "coords": [
+                [
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 370.9585,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 370.9585,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 370.9585,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 370.9585,
+                        "width": 80
+                    }
+                ],
+                [
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 499.4657756,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 499.4657756,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 499.4657756,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 499.4657756,
+                        "width": 80
+                    }
+                ]
+            ]
+        },
+        {
+            "id": 4,
+            "iod": 2.76,
+            "compare": true,
+            "modifier": "D",
+            "compareIod": 3.32,
+            "coords": [
+                [
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 370.9585,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 370.9585,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 370.9585,
+                        "y": 370.9585,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 370.9585,
+                        "width": 80
+                    }
+                ],
+                [
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 499.4657756,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 499.4657756,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 100,
+                        "width": 80
+                    },
+                    {
+                        "x": 499.4657756,
+                        "y": 499.4657756,
+                        "width": 80
+                    },
+                    {
+                        "x": 100,
+                        "y": 499.4657756,
+                        "width": 80
+                    }
+                ]
+            ]
+        },
+        {
+            "id": 5,
+            "iod": 0,
+            "compare": true,
+            "modifier": "D",
+            "compareIod": 0,
+            "coords": [
+                [],
+                []
             ]
         }
     ]
