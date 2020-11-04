@@ -69,7 +69,7 @@ export default ({ coords, nextStep, training }: TaskProps) => {
         setTaskStarted(true)
         timer.startTimer()
     }
-console.log(clicks)
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
             {training && <h2 style={{ position: 'absolute', top: 30 }}>HARJOITUS</h2>}
