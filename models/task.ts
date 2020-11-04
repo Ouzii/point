@@ -10,10 +10,14 @@ export interface TaskAttributes {
   iod: number
   modifier: string
   compare: boolean
+  width: number
+  distance: number
   time: number
   userTime: number
   compareTime: number
   compareIod: number
+  compareWidth: number
+  compareDistance: number
   userValue: number
 }
 
@@ -34,6 +38,12 @@ const Task = database.define<any, TaskAttributes>('Task', {
     type: DataTypes.BOOLEAN,
     allowNull: false
   },
+  width: {
+    type: DataTypes.DECIMAL(10,3),
+  },
+  distance: {
+    type: DataTypes.DECIMAL(10,3),
+  },
   time: {
     type: DataTypes.INTEGER,
     allowNull: false
@@ -46,6 +56,12 @@ const Task = database.define<any, TaskAttributes>('Task', {
   },
   compareIod: {
     type: DataTypes.DECIMAL(10,2),
+  },
+  compareWidth: {
+    type: DataTypes.DECIMAL(10,3),
+  },
+  compareDistance: {
+    type: DataTypes.DECIMAL(10,3),
   },
   userValue: {
     type: DataTypes.INTEGER,
