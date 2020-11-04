@@ -54,6 +54,15 @@ export const addNewClickData = (NewClickData: Click, task: number): void => {
     setLocalData(localData)
 }
 
+export const resetShortTimeValues = () => {
+    window.localStorage.removeItem('guessedTime')
+    window.localStorage.removeItem('time')
+    window.localStorage.removeItem('time1')
+    window.localStorage.removeItem('time2')
+    window.localStorage.removeItem('compareValue')
+    window.localStorage.removeItem('clicks')
+}
+
 // export const setStep = (newStep: number): void => {
 //     const localData = getLocalData()
 //     localData.step = newStep
@@ -69,5 +78,5 @@ export default {
     isUserSessionAlive,
     addNewTaskData,
     addNewClickData,
-    // setStep
+    resetShortTimeValues
 }

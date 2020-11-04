@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-import LocalDataHandler, { setLocalData, getLocalData, getItem, setItem } from './functions/LocalDataHandler'
+import LocalDataHandler, { setLocalData, getLocalData, getItem, setItem, resetShortTimeValues } from './functions/LocalDataHandler'
 import Welcome from './screens/Welcome'
 import ThankYou from './screens/ThankYou'
 import { newUser } from './services/userService'
@@ -12,6 +12,7 @@ import tasks from './util/tasks.json'
 import Info from './components/Info'
 import getOrder from './util/order'
 import { addTaskToUser } from './services/taskService'
+import ProgressBar from './components/ProgressBar'
 
 const randomNumber = Math.random()
 const set2Tasks: Array<number> = randomNumber <= 0.33 ? [STEP.PHASE.PHASE3, STEP.PHASE.PHASE2, STEP.PHASE.PHASE1] : randomNumber <= 0.66 ? [STEP.PHASE.PHASE3, STEP.PHASE.PHASE1, STEP.PHASE.PHASE2] : [STEP.PHASE.PHASE2, STEP.PHASE.PHASE3, STEP.PHASE.PHASE1]
@@ -25,6 +26,7 @@ export default () => {
   const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE1)
   const [task, setTask] = useState<number>(STEP.TASK.TASK1)
   const [order, setOrder] = useState<Array<number>>([0, 1, 2, 3])
+  const [progress, setProgress] = useState<number>(1)
 
 
   useEffect(() => {
@@ -76,7 +78,7 @@ export default () => {
 
 
   useEffect(() => {
-
+    setProgress(progress + 1)
     if (task - 1 > STEP.TASK.TASK4) {
       if ((phase >= STEP.PHASE.PHASE3 && set <= STEP.SET.SET2) || (phase >= STEP.PHASE.PHASE6 && set >= STEP.SET.SET3)) {
         setSet(set + 1)
@@ -126,12 +128,7 @@ export default () => {
 
     if (sendNewTask({ userId: currentLocalData.id, ...newTask })) {
       LocalDataHandler.setLocalData(currentLocalData)
-      setItem('guessedTime', null)
-      setItem('time', null)
-      setItem('time1', null)
-      setItem('time2', null)
-      setItem('compareValue', null)
-      setItem('clicks', null)
+      resetShortTimeValues()
     }
 
     if (task - 1 >= STEP.TASK.TASK4) setTask(task + 1)
@@ -149,7 +146,7 @@ export default () => {
     if (task > STEP.TASK.TASK4) return <div />
     switch (set) {
       case STEP.SET.WELCOME:
-        return <Welcome nextStep={() => setSet(STEP.SET.SET3)} />
+        return <Welcome nextStep={() => setSet(STEP.SET.QUIZ)} />
       case STEP.SET.QUIZ:
         return <Quiz nextStep={() => setSet(STEP.SET.INFO1)} />
       case STEP.SET.INFO1:
@@ -173,6 +170,7 @@ export default () => {
 
   return (
     <div className="App">
+      <ProgressBar progress={progress} />
       {renderContent()}
     </div>
   )
