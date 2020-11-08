@@ -26,7 +26,7 @@ export default () => {
   const [phase, setPhase] = useState<number>(STEP.PHASE.PHASE1)
   const [task, setTask] = useState<number>(STEP.TASK.TASK1)
   const [order, setOrder] = useState<Array<number>>([0, 1, 2, 3])
-  const [progress, setProgress] = useState<number>(1)
+  const [progress, setProgress] = useState<number>(0)
   const [trainingTask, setTrainingTask] = useState<number>(0)
 
 
@@ -89,7 +89,7 @@ export default () => {
 
 
   useEffect(() => {
-    setProgress(progress + 1)
+
     if (task - 1 > STEP.TASK.TASK4) {
       if ((phase >= STEP.PHASE.PHASE3 && set <= STEP.SET.SET2) || (phase >= STEP.PHASE.PHASE6 && set >= STEP.SET.SET3)) {
         setSet(set + 1)
@@ -148,6 +148,7 @@ export default () => {
     if (sendNewTask({ userId: currentLocalData.id, ...newTask })) {
       LocalDataHandler.setLocalData(currentLocalData)
       resetShortTimeValues()
+      setProgress(progress + 1)
     }
 
     if (task - 1 >= STEP.TASK.TASK4) setTask(task + 1)
@@ -167,7 +168,7 @@ export default () => {
       case STEP.SET.WELCOME:
         return <Welcome nextStep={() => setSet(STEP.SET.QUIZ)} />
       case STEP.SET.QUIZ:
-        return <Quiz nextStep={() => setSet(STEP.SET.INFO1)} />
+        return <Quiz nextStep={() => setSet(STEP.SET.INFO2)} />
       case STEP.SET.INFO1:
         return <Info type={INFO_TYPE.TIME_GUESS} nextStep={() => setSet(STEP.SET.TRAINING1)} />
       case STEP.SET.TRAINING1:

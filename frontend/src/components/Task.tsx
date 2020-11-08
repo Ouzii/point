@@ -7,7 +7,6 @@ import LocalDataHandler from '../functions/LocalDataHandler'
 import Countdown from './Countdown'
 import STEP from '../config/enums'
 import { CANVAS_SIZE } from '../config/settings'
-import { createLogicalAnd } from 'typescript'
 
 type TaskProps = {
     coords: Array<any>

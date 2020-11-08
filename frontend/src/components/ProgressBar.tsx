@@ -1,5 +1,5 @@
 import React from 'react'
-import { AMOUNT_OF_BALLS } from '../config/settings'
+import { AMOUNT_OF_TASKS } from '../config/settings'
 
 type ProgressBarProps = {
     progress: number
@@ -11,11 +11,11 @@ export default ({ progress }: ProgressBarProps) => {
         }}>
             <div style={{
                 height: '100%',
-                width: `${Math.round((progress / AMOUNT_OF_BALLS) * 100)}%`,
+                width: `${Math.round((progress / AMOUNT_OF_TASKS) * 100)}%`,
                 backgroundColor: 'lightgreen',
                 borderRadius: 'inherit',
             }} />
-            <span style={{}}>{Math.round((progress / AMOUNT_OF_BALLS) * 100)}%</span>
+            <span style={{}}>{Math.round((progress / AMOUNT_OF_TASKS) * 100)}%</span>
         </div>
     )
 }
