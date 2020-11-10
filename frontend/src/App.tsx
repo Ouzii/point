@@ -168,7 +168,7 @@ export default () => {
       case STEP.SET.WELCOME:
         return <Welcome nextStep={() => setSet(STEP.SET.QUIZ)} />
       case STEP.SET.QUIZ:
-        return <Quiz nextStep={() => setSet(STEP.SET.INFO2)} />
+        return <Quiz nextStep={() => setSet(STEP.SET.INFO1)} />
       case STEP.SET.INFO1:
         return <Info type={INFO_TYPE.TIME_GUESS} nextStep={() => setSet(STEP.SET.TRAINING1)} />
       case STEP.SET.TRAINING1:
