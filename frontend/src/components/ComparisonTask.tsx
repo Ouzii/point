@@ -68,6 +68,7 @@ export default ({ coords, nextStep, training }: ComparisonTaskProps) => {
                 setCircleNumber(COORDS.COORDS1)
                 setTaskStarted(false)
                 setTaskNumber(1)
+                timer.reset(false)
             } else {
                 setTaskOngoing(false)
             }
