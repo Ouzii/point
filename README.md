@@ -1,10 +1,12 @@
 Point
 
-## Starting commands
+## Starting commands for backend
 | Command | Description |
 | ------- | ----------- |
 | `npm start` | Start the backend in production mode |
 | `npm run watch` | Start the backend in development mode |
+***
+## Frontend README located in frontend directory!
 
 ***
 ## Environment variables
