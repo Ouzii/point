@@ -5,6 +5,8 @@ import { updateUser } from '../services/userService'
 type QuizProps = {
     nextStep: () => void
 }
+// Component for asking user information
+// nextStep = callback for advancing in app
 export default ({ nextStep }: QuizProps) => {
 
     const [formValues, setFormValues] = useState({ age: '18', gender: 'none', inputDevice: 'mouse' })
@@ -17,18 +19,19 @@ export default ({ nextStep }: QuizProps) => {
 
     const onSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
-
+        // Set given values to localStorage
         const currentLocalData = getLocalData()
         currentLocalData.age = Number.parseInt(formValues.age)
         currentLocalData.gender = formValues.gender
         currentLocalData.inputDevice = formValues.inputDevice
 
+        // Send the data to backend. If succeeds, update local
         if (sendUserUpdate({ id: currentLocalData.id, ...formValues })) setLocalData(currentLocalData)
 
         nextStep()
     }
 
-    const sendUserUpdate = async (data: any) => {
+    const sendUserUpdate = async (data: { id: number, age: string, gender: string, inputDevice: string }) => {
         const res = await updateUser(data)
         if (res) return true
         return false

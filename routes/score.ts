@@ -5,9 +5,9 @@ import User from '../models/user'
 import Click from '../models/click'
 
 const scoreRouter = express.Router()
-
+// Get data as csv from database.
 scoreRouter.get('/csv', async (req: express.Request, res: express.Response) => {
-    const tasks = await Task.findAll({include: [User, Click]})
+    const tasks = await Task.findAll({ include: [User, Click] })
     res.setHeader('Content-disposition', 'attachment; filename=results.csv')
     res.setHeader('content-type', 'text/csv')
     const stream = csv.format({ headers: true })

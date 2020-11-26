@@ -1,3 +1,4 @@
+// Timer component
 export default (startNow: boolean) => {
 
     let startTime: number = startNow ? new Date().getTime() : 0;

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-
+// Countdown component for starting a task
+// onCountdownDone = callback for when countdown is finished
 export default ({ onCountdownDone }: { onCountdownDone: () => void }) => {
+    // Set the first number in countdown
     const [time, setTime] = useState<number>(10)
 
     const setNewTime = () => {
@@ -14,6 +16,7 @@ export default ({ onCountdownDone }: { onCountdownDone: () => void }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setNewTime()
+            // Interval (ms) of number changes
         }, 150)
         return () => {
             clearTimeout(timer)

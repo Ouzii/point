@@ -32,3 +32,21 @@ export type Click = {
     ballX: number
     ballY: number
 }
+
+export type TaskData = {
+    orderNumber: number
+    iod: number
+    modifier: string
+    compare: boolean
+    width: number
+    distance: number
+    time: number
+    userTime: number
+    compareTime: number | null
+    compareIod: number | null
+    compareWidth: number | null
+    compareDistance: number | null
+    userValue: number | null
+    clicks: Array<Click>,
+    userId: number
+}

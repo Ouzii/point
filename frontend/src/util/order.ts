@@ -1,3 +1,4 @@
+// Return order of tasks accoring to id
 export default (id: number): Array<number> => {
     switch (id % 4) {
         case 0:

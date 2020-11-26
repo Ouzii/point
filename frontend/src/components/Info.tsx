@@ -5,6 +5,9 @@ type InfoProps = {
     type: number
     nextStep: () => void
 }
+// Info text for different types of tasks
+// type = type of task
+// nextStep = callback for advancing
 export default ({ type, nextStep }: InfoProps) => {
 
     const renderInfoText = () => {

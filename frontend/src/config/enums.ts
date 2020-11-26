@@ -1,3 +1,8 @@
+// Largest scale of slices in system
+// SET1 = phases 1->3 in order
+// SET2 = phases 1->3 in random order
+// SET3 = phases 4->6 in order
+// SET4 = phases 6->6 in random order
 export enum SET {
     WELCOME = 0,
     QUIZ,
@@ -11,7 +16,7 @@ export enum SET {
     SET4,
     THANK_YOU
 }
-
+// Phases of tasks: 1-3 are regular tasks, 4-6 are comparison tasks
 export enum PHASE {
     PHASE1 = 1,
     PHASE2,
@@ -20,14 +25,14 @@ export enum PHASE {
     PHASE5,
     PHASE6,
 }
-
+// Number of task in a phase
 export enum TASK {
     TASK1 = 0,
     TASK2,
     TASK3,
     TASK4
 }
-
+// Number of circle in a task
 export enum COORDS {
     COORDS1 = 0,
     COORDS2,

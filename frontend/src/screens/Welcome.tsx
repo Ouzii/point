@@ -3,6 +3,8 @@ import React from 'react'
 type WelcomeProps = {
     nextStep: () => void
 }
+// Welcome component
+// nextStep = callback for advancing
 export default ({ nextStep }: WelcomeProps) => {
     return <div>
         <h1>Tervetuloa klikkaamaan palloja, kiva kun osallistut</h1>

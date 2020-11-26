@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "GNU GPL",
   "devDependencies": {
     "@types/express": "^4.17.8",
     "nodemon": "^2.0.4",

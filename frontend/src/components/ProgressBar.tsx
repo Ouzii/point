@@ -1,9 +1,12 @@
 import React from 'react'
+// The number of all tasks
 import { AMOUNT_OF_TASKS } from '../config/settings'
 
 type ProgressBarProps = {
     progress: number
 }
+// Progress bar component
+// progress = current task number
 export default ({ progress }: ProgressBarProps) => {
     return (
         <div style={{
@@ -15,7 +18,7 @@ export default ({ progress }: ProgressBarProps) => {
                 backgroundColor: 'lightgreen',
                 borderRadius: 'inherit',
             }} />
-            <span style={{}}>{Math.round((progress / AMOUNT_OF_TASKS) * 100)}%</span>
+            <span>{Math.round((progress / AMOUNT_OF_TASKS) * 100)}%</span>
         </div>
     )
 }

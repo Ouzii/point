@@ -7,10 +7,13 @@ const timer = Timer(false)
 type TimeGuesserProps = {
     nextStep: () => void
 }
+// Component for giving input in regular task
+// nextStep = callback for advancing
 export default ({ nextStep }: TimeGuesserProps) => {
 
     const [timerOn, setTimerOn] = useState(false)
 
+    // Handle starting/stopping the timer
     const buttonClick = () => {
         if (timerOn) {
             const times = timer.endTimer()

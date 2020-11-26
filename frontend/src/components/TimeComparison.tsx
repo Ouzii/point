@@ -4,6 +4,8 @@ import LocalDataHandler from '../functions/LocalDataHandler'
 type TimeGuesserProps = {
     nextStep: () => void
 }
+// Component for giving input on comparison tasks
+// nextStep = callback for advancing
 export default ({ nextStep }: TimeGuesserProps) => {
 
     const [slider, setSlider] = useState("0")
